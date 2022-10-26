@@ -25,6 +25,7 @@ public class VikingGame extends Game {
         world.load(imageLoader);
         player.teleport(200, 200);
         tree = new Tree(300, 350);
+        tree.load(imageLoader);
 
         Music.WORLD_BACKGROUND.play();
 

@@ -2,6 +2,7 @@ package cegepst.finalGame;
 
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.entities.StaticEntity;
+import cegepst.engine.graphics.ImageLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,7 +19,6 @@ public class Tree extends StaticEntity {
         blockade = new Blockade();
         blockade.setDimension(30, 16);
         blockadeFromTop();
-        load();
     }
 
     @Override
@@ -27,20 +27,26 @@ public class Tree extends StaticEntity {
         //blockade.draw(buffer);
     }
 
+    @Override
+    public void load(ImageLoader imageLoader) {
+        loadSpriteSheet(imageLoader);
+    }
+
+    @Override
+    protected void loadSpriteSheet(ImageLoader imageLoader) {
+        image = imageLoader.loadImage(SPRITE_PATH);
+    }
+
+    @Override
+    protected void loadAnimationFrames() {
+
+    }
+
     public void blockadeFromTop() {
         blockade.teleport(x + 16, y + 64);
     }
 
     public void blockadeFromBottom() {
         blockade.teleport(x + 16, y + 48);
-    }
-
-    private void load() {
-        try {
-            image = ImageIO.read(this.getClass().getClassLoader()
-                    .getResourceAsStream(SPRITE_PATH));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 }
