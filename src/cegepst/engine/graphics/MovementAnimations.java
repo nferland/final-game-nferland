@@ -25,10 +25,6 @@ public class MovementAnimations extends Animations {
         }
     }
 
-    public int getAnimationLength() {
-        return animations[1].length;
-    }
-
     public Image[] getRightFrames() {
         return animations[2];
     }

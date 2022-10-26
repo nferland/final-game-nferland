@@ -31,6 +31,7 @@ public abstract class Animations {
     public Image[] getAnimation(int index) {
         return animations[index];
     }
+
     public int getCurrentAnimationFrame() {
         return currentAnimationFrame;
     }
@@ -45,6 +46,14 @@ public abstract class Animations {
 
     public void setNextFrame(int value) {
         nextFrame = value;
+    }
+
+    public int getAnimationLength(int index) {
+        return animations[index].length;
+    }
+
+    public int getAnimationLength() {
+        return animations[0].length;
     }
 
 }
