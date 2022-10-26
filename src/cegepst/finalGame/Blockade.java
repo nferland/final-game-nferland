@@ -1,7 +1,7 @@
 package cegepst.finalGame;
 
 import cegepst.engine.graphics.Buffer;
-import cegepst.engine.entities.CollidableRepository;
+import cegepst.engine.entities.physic.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 
 import java.awt.*;

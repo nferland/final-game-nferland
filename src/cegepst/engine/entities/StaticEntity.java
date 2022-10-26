@@ -6,6 +6,8 @@ import java.awt.*;
 
 public abstract class StaticEntity {
 
+    public static final int ANIMATION_SPEED = 8;
+
     protected int x;
     protected int y;
     protected int width;
@@ -43,7 +45,7 @@ public abstract class StaticEntity {
         return getBounds().intersects(other.getBounds());
     }
 
-    protected Rectangle getBounds() {
+    public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
 }

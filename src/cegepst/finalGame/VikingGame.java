@@ -2,10 +2,12 @@ package cegepst.finalGame;
 
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.Game;
+import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.RenderingEngine;
 
 public class VikingGame extends Game {
 
+    private ImageLoader imageLoader;
     private GamePad gamePad;
     private Player player;
     private World world;
@@ -14,12 +16,13 @@ public class VikingGame extends Game {
 
     @Override
     protected void initialize() {
+        imageLoader = new ImageLoader();
         gamePad = new GamePad();
         hud = new Hud();
         player = new Player(gamePad);
-        player.load();
+        player.load(imageLoader);
         world = new World();
-        world.load();
+        world.load(imageLoader);
         player.teleport(200, 200);
         tree = new Tree(300, 350);
 

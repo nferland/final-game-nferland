@@ -1,6 +1,7 @@
 package cegepst.engine.entities;
 
 import cegepst.engine.controls.Direction;
+import cegepst.engine.entities.physic.Collision;
 import cegepst.engine.graphics.Buffer;
 
 import java.awt.*;

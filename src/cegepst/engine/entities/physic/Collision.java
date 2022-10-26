@@ -1,6 +1,8 @@
-package cegepst.engine.entities;
+package cegepst.engine.entities.physic;
 
 import cegepst.engine.controls.Direction;
+import cegepst.engine.entities.MovableEntity;
+import cegepst.engine.entities.StaticEntity;
 
 import java.awt.*;
 
@@ -23,19 +25,19 @@ public class Collision {
     }
 
     private int getAllowedUpSpeed() {
-        return distance(other -> entity.y - (other.y + other.height));
+        return distance(other -> entity.getY() - (other.getY() + other.getHeight()));
     }
 
     private int getAllowedDownSpeed() {
-        return distance(other -> other.y - (entity.y + entity.height));
+        return distance(other -> other.getY() - (entity.getY() + entity.getHeight()));
     }
 
     private int getAllowedLeftSpeed() {
-        return distance(other -> entity.x - (other.x + other.width));
+        return distance(other -> entity.getX() - (other.getX() + other.getWidth()));
     }
 
     private int getAllowedRightSpeed() {
-        return distance(other -> other.x - (entity.x + entity.width));
+        return distance(other -> other.getX() - (entity.getX() + entity.getWidth()));
     }
 
     private int distance(DistanceCalculator calculator) {

@@ -1,6 +1,7 @@
 package cegepst.finalGame;
 
 import cegepst.engine.graphics.Buffer;
+import cegepst.engine.graphics.ImageLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,13 +29,8 @@ public class World {
         blockades.add(topBorder2);
     }
 
-    public void load() {
-        try {
-            background = ImageIO.read(this.getClass().getClassLoader()
-                    .getResourceAsStream(MAP_PATH));
-        } catch (IOException exception) {
-            System.out.println(exception.getMessage());
-        }
+    public void load(ImageLoader imageLoader) {
+        background = imageLoader.loadImage(MAP_PATH);
     }
 
     public void draw(Buffer buffer) {
