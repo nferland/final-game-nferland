@@ -17,7 +17,7 @@ public class GamePad extends MovementController {
         bindKey(attackKey, 500);
         bindKey(toggleKey, 2000);
         bindKey(musicKey, 100);
-        bindKey(dashKey, 2000);
+        bindKey(dashKey, 1000);
     }
 
     public void useWASDMovement() {

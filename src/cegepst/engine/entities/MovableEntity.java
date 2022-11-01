@@ -1,5 +1,6 @@
 package cegepst.engine.entities;
 
+import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.physic.Collision;
 import cegepst.engine.graphics.Buffer;
@@ -9,12 +10,13 @@ import java.awt.*;
 public abstract class MovableEntity extends StaticEntity {
 
     private int speed = 1;
-    private int dashStrength = 10;
+    private int dashSpeed = 5;
+    private long dashDuration = 250;
+    private long dashLastUsage = 0L;
     private Direction direction = Direction.UP;
     private int lastX = Integer.MIN_VALUE;
     private int lastY = Integer.MIN_VALUE;
     private boolean moved = false;
-    private boolean dashed = false;
     private Collision collision;
 
     public MovableEntity() {
@@ -32,19 +34,12 @@ public abstract class MovableEntity extends StaticEntity {
         moved = (x != lastX || y != lastY);
         lastX = x;
         lastY = y;
-        if (hasDashed()) {
-            dashed = false;
-            setSpeed(speed / dashStrength);
-        }
     }
 
     public boolean hasMoved() {
         return moved;
     }
 
-    public boolean hasDashed() {
-        return dashed;
-    }
 
     public void move(Direction direction) {
         this.direction = direction;
@@ -92,8 +87,11 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     public void dash() {
-        setSpeed(speed * dashStrength);
-        dashed = true;
+        dashLastUsage = GameTime.getCurrentTime();
+    }
+
+    public boolean isDashing() {
+        return (GameTime.getCurrentTime() - dashLastUsage < dashDuration);
     }
 
     public void setSpeed(int speed) {
@@ -105,6 +103,9 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     public int getSpeed() {
+        if(isDashing()){
+            return dashSpeed;
+        }
         return speed;
     }
 
@@ -112,12 +113,12 @@ public abstract class MovableEntity extends StaticEntity {
         return direction;
     }
 
-    public void setDashStrength(int strength) {
-        dashStrength = strength;
+    public void setDashSpeed(int strength) {
+        dashSpeed = strength;
     }
 
-    public int getDashStrength() {
-        return dashStrength;
+    public void setDashDuration(long dashDuration) {
+        this.dashDuration = dashDuration;
     }
 
     private Rectangle getUpperHitBox() {

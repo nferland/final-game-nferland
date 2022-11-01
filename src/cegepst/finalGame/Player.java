@@ -9,6 +9,7 @@ import cegepst.engine.controls.MovementController;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.finalGame.audio.Sound;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Player extends ControllableEntity {
@@ -22,7 +23,7 @@ public class Player extends ControllableEntity {
         super(controller);
         setDimension(32, 32);
         setSpeed(3);
-        setDashStrength(15);
+        setDashSpeed(15);
         movementAnimations = new MovementAnimations(SPRITE_PATH, width, height, 0, 0);
         weapons = new ArrayList<>();
     }
@@ -37,6 +38,9 @@ public class Player extends ControllableEntity {
     @Override
     public void draw(Buffer buffer) {
         buffer.drawImage(Animator.draw(getDirection(), movementAnimations, movementAnimations.getCurrentAnimationFrame()), x, y);
+        if (isDashing()) {
+            buffer.drawRectangle(x, y, width,height, Color.RED);
+        }
     }
 
     @Override
