@@ -4,6 +4,7 @@ import cegepst.engine.graphics.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.RenderingEngine;
+import cegepst.finalGame.audio.Music;
 
 public class VikingGame extends Game {
 
@@ -18,6 +19,7 @@ public class VikingGame extends Game {
     protected void initialize() {
         imageLoader = new ImageLoader();
         gamePad = new GamePad();
+        gamePad.useWASDMovement();
         hud = new Hud();
         player = new Player(gamePad);
         player.load(imageLoader);
@@ -27,7 +29,7 @@ public class VikingGame extends Game {
         tree = new Tree(300, 350);
         tree.load(imageLoader);
 
-        Music.WORLD_BACKGROUND.play();
+        Music.WIND_BACKGROUND.play();
 
         //RenderingEngine.getInstance().getScreen().fullScreen();
         RenderingEngine.getInstance().getScreen().hideCursor();
@@ -61,16 +63,20 @@ public class VikingGame extends Game {
 
     private void updateInputs() {
         if (gamePad.isQuitPressed()) {
+            Music.WIND_BACKGROUND.stop();
             stop();
         }
         if (gamePad.isTogglePressed()) {
             RenderingEngine.getInstance().getScreen().toggleFullScreen();
         }
         if (gamePad.isMusicPressed()) {
-            Music.WORLD_BACKGROUND.toggle();
+            Music.WIND_BACKGROUND.toggle();
         }
-        if (gamePad.isFirePressed()) {
-            Sound.FIRE.play();
+        if (gamePad.isAttackPressed()) {
+            player.attack();
+        }
+        if(gamePad.isDashPressed()) {
+            player.dash();
         }
     }
 }
