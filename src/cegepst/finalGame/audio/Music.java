@@ -1,4 +1,4 @@
-package cegepst.finalGame;
+package cegepst.finalGame.audio;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -6,7 +6,7 @@ import javax.sound.sampled.Clip;
 
 public enum Music {
 
-    WORLD_BACKGROUND("music.wav");
+    WIND_BACKGROUND("wind2.wav");
 
     private Clip clip;
 
