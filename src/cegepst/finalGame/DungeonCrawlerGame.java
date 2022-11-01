@@ -6,7 +6,7 @@ import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.RenderingEngine;
 import cegepst.finalGame.audio.Music;
 
-public class VikingGame extends Game {
+public class DungeonCrawlerGame extends Game {
 
     private ImageLoader imageLoader;
     private GamePad gamePad;
