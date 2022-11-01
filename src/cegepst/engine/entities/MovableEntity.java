@@ -9,10 +9,12 @@ import java.awt.*;
 public abstract class MovableEntity extends StaticEntity {
 
     private int speed = 1;
+    private int dashStrength = 10;
     private Direction direction = Direction.UP;
     private int lastX = Integer.MIN_VALUE;
     private int lastY = Integer.MIN_VALUE;
     private boolean moved = false;
+    private boolean dashed = false;
     private Collision collision;
 
     public MovableEntity() {
@@ -30,10 +32,18 @@ public abstract class MovableEntity extends StaticEntity {
         moved = (x != lastX || y != lastY);
         lastX = x;
         lastY = y;
+        if (hasDashed()) {
+            dashed = false;
+            setSpeed(speed / dashStrength);
+        }
     }
 
     public boolean hasMoved() {
         return moved;
+    }
+
+    public boolean hasDashed() {
+        return dashed;
     }
 
     public void move(Direction direction) {
@@ -81,6 +91,11 @@ public abstract class MovableEntity extends StaticEntity {
                 rectangle.width, rectangle.height, color);
     }
 
+    public void dash() {
+        setSpeed(speed * dashStrength);
+        dashed = true;
+    }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -95,6 +110,14 @@ public abstract class MovableEntity extends StaticEntity {
 
     public Direction getDirection() {
         return direction;
+    }
+
+    public void setDashStrength(int strength) {
+        dashStrength = strength;
+    }
+
+    public int getDashStrength() {
+        return dashStrength;
     }
 
     private Rectangle getUpperHitBox() {

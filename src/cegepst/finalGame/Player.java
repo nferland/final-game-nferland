@@ -7,6 +7,7 @@ import cegepst.engine.graphics.Buffer;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
 import cegepst.engine.graphics.ImageLoader;
+import cegepst.finalGame.audio.Sound;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class Player extends ControllableEntity {
         super(controller);
         setDimension(32, 32);
         setSpeed(3);
+        setDashStrength(15);
         movementAnimations = new MovementAnimations(SPRITE_PATH, width, height, 0, 0);
         weapons = new ArrayList<>();
     }
@@ -42,6 +44,10 @@ public class Player extends ControllableEntity {
         super.update();
         moveWithController();
         Animator.animate(hasMoved(), movementAnimations);
+    }
+
+    public void attack() {
+        Sound.PLAYER_ATTACK.play();
     }
 
     protected void loadSpriteSheet(ImageLoader imageLoader) {
