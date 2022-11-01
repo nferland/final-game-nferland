@@ -7,9 +7,10 @@ import javax.sound.sampled.Clip;
 public enum Sound {
 
     FIRE("gun.wav"),
-    PLAYER_ATTACK("hero-attack.wav");
+    PLAYER_ATTACK("hero-attack.wav"),
+    DASH("dash.wav");
 
-    private String audioResourceName;
+    private final String audioResourceName;
 
     Sound(String audioResourceName) {
         this.audioResourceName = audioResourceName;

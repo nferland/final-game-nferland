@@ -4,6 +4,7 @@ import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.physic.Collision;
 import cegepst.engine.graphics.Buffer;
+import cegepst.finalGame.audio.Sound;
 
 import java.awt.*;
 
@@ -11,7 +12,7 @@ public abstract class MovableEntity extends StaticEntity {
 
     private int speed = 1;
     private int dashSpeed = 5;
-    private long dashDuration = 250;
+    private long dashDuration = 150;
     private long dashLastUsage = 0L;
     private Direction direction = Direction.UP;
     private int lastX = Integer.MIN_VALUE;
@@ -88,6 +89,7 @@ public abstract class MovableEntity extends StaticEntity {
 
     public void dash() {
         dashLastUsage = GameTime.getCurrentTime();
+        Sound.DASH.play();
     }
 
     public boolean isDashing() {
