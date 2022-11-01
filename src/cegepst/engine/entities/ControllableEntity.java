@@ -16,5 +16,8 @@ public abstract class ControllableEntity extends MovableEntity {
         if (direction != null) {
             move(direction);
         }
+        if (isDashing()){
+            move(this.getDirection());
+        }
     }
 }
