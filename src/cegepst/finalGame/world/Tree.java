@@ -1,12 +1,10 @@
-package cegepst.finalGame;
+package cegepst.finalGame.world;
 
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.graphics.ImageLoader;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
 
 public class Tree extends StaticEntity {
 

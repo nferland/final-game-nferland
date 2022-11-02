@@ -5,6 +5,8 @@ import cegepst.engine.Game;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.RenderingEngine;
 import cegepst.finalGame.audio.Music;
+import cegepst.finalGame.world.Tree;
+import cegepst.finalGame.world.World;
 
 public class DungeonCrawlerGame extends Game {
 

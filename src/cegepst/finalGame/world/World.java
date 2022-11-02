@@ -1,11 +1,9 @@
-package cegepst.finalGame;
+package cegepst.finalGame.world;
 
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.ImageLoader;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class World {

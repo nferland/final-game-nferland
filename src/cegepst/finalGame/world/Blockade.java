@@ -1,4 +1,4 @@
-package cegepst.finalGame;
+package cegepst.finalGame.world;
 
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.entities.physic.CollidableRepository;
