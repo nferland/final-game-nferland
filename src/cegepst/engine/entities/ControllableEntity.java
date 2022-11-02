@@ -12,11 +12,11 @@ public abstract class ControllableEntity extends MovableEntity {
     }
 
     public void moveWithController() {
-        Direction direction = controller.getMoveDirection();
         if (isDashing()){
             move(this.getDirection());
             return;
         }
+        Direction direction = controller.getMoveDirection();
         if (direction != null) {
             move(direction);
         }

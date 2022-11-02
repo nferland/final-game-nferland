@@ -13,4 +13,8 @@ public class SpriteSplicer {
         }
         return frames;
     }
+
+    public static Image spliceSingleSprite(int startX, int startY, int width, int heigth, BufferedImage bufferedImage) {
+        return bufferedImage.getSubimage(startX, startY, width, heigth);
+    }
 }
