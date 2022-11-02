@@ -7,6 +7,7 @@ import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
 import cegepst.finalGame.audio.Sound;
+import cegepst.finalGame.weapons.Sword;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Player extends ControllableEntity {
 
     private MovementAnimations walkingAnimations;
     private ArrayList<DashGhost> dashGhosts;
-    private ArrayList<Weapon> weapons;
+    private Sword sword;
     private long ghostApparitionRate = 20;
     private long lastGhostApparition = 0l;
 
@@ -28,7 +29,7 @@ public class Player extends ControllableEntity {
         setSpeed(3);
         setDashSpeed(15);
         walkingAnimations = new MovementAnimations(SPRITE_PATH, width, height, 0, 0);
-        weapons = new ArrayList<>();
+        sword = new Sword("images/sword.png", 78, 26);
         dashGhosts = new ArrayList<>();
     }
 
@@ -47,6 +48,7 @@ public class Player extends ControllableEntity {
             return;
         }
         buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getCurrentAnimationFrame()), x, y);
+        drawWeapons(buffer);
     }
 
     @Override
@@ -55,10 +57,12 @@ public class Player extends ControllableEntity {
         moveWithController();
         Animator.animate(hasMoved(), walkingAnimations);
         updateDashGhosts();
+        updateSword();
     }
 
     public void attack() {
         Sound.PLAYER_ATTACK.play();
+        sword.attack();
     }
 
     protected void loadSpriteSheet(ImageLoader imageLoader) {
@@ -70,9 +74,7 @@ public class Player extends ControllableEntity {
     }
 
     private void loadWeapons(ImageLoader imageLoader) {
-        for (Weapon weapon : weapons) {
-            weapon.load(imageLoader);
-        }
+        sword.load(imageLoader);
     }
 
     private void updateDashGhosts() {
@@ -83,9 +85,21 @@ public class Player extends ControllableEntity {
         }
     }
 
+    private void updateSword() {
+        sword.setDirection(getDirection());
+        sword.update();
+        sword.updatePlacement(this);
+    }
+
     private void drawDashGhosts(Buffer buffer) {
         for (DashGhost dashGhost : dashGhosts) {
             dashGhost.draw(buffer);
+        }
+    }
+
+    private void drawWeapons(Buffer buffer) {
+        if(sword.isAttacking()) {
+            sword.draw(buffer);
         }
     }
 
