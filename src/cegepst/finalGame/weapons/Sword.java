@@ -3,6 +3,7 @@ package cegepst.finalGame.weapons;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.Weapon;
+import cegepst.engine.graphics.Animator;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.entities.Dimension;
@@ -20,12 +21,13 @@ public class Sword extends Weapon {
     public void update() {
         super.update();
         updateIsAttacking();
-        updateDimension();
+        updateAnimation();
+
     }
 
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawRectangle(x, y, getWidth(), getHeight(), new Color(255, 0, 0, 100));
+        buffer.drawImage(Animator.draw(getDirection(), animations, animations.getCurrentAnimationFrame()), x, y);
     }
 
     public void updatePlacement(MovableEntity master) {
@@ -39,20 +41,16 @@ public class Sword extends Weapon {
 
     @Override
     protected void loadSpriteSheet(ImageLoader imageLoader) {
-
+        animations.loadSpriteSheet(imageLoader);
     }
 
     @Override
     protected void loadAnimationFrames() {
-
+        animations.loadAnimations();
     }
 
-    private void updateDimension() {
-        if (getDirection() == Direction.DOWN || getDirection() == Direction.UP) {
-            setHitboxDimension(52, 26);
-            return;
-        }
-        setHitboxDimension(26, 52);
+    private void updateAnimation() {
+        Animator.animate(isAttacking(), animations, 0);
     }
 
     private void teleportUp(MovableEntity master) {
