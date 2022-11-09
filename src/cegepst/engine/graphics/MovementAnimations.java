@@ -31,22 +31,6 @@ public class MovementAnimations extends Animations {
         }
     }
 
-    public Image[] getRightFrames() {
-        return animations[2];
-    }
-
-    public Image[] getLeftFrames() {
-        return animations[1];
-    }
-
-    public Image[] getUpFrames() {
-        return animations[3];
-    }
-
-    public Image[] getDownFrames() {
-        return animations[0];
-    }
-
     public int getDashFrame() {
         return dashAnimationFrame;
     }

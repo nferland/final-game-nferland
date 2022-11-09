@@ -7,17 +7,17 @@ import java.awt.*;
 
 public class Animator {
 
-    public static Image draw(Direction direction, MovementAnimations movementAnimations, int currentAnimationFrame) {
+    public static Image draw(Direction direction, Animations animations, int currentAnimationFrame) {
         if (direction == Direction.RIGHT) {
-            return movementAnimations.getRightFrames()[currentAnimationFrame];
+            return animations.getRightFrames()[currentAnimationFrame];
         } else if (direction == Direction.LEFT) {
-            return movementAnimations.getLeftFrames()[currentAnimationFrame];
+            return animations.getLeftFrames()[currentAnimationFrame];
         } else if (direction == Direction.UP) {
-            return movementAnimations.getUpFrames()[currentAnimationFrame];
+            return animations.getUpFrames()[currentAnimationFrame];
         } else if (direction == Direction.DOWN) {
-            return movementAnimations.getDownFrames()[currentAnimationFrame];
+            return animations.getDownFrames()[currentAnimationFrame];
         }
-        return movementAnimations.getDownFrames()[1];
+        return animations.getDownFrames()[1];
     }
 
     public static void animate(boolean moved, Animations animations) {
