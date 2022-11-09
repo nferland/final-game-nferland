@@ -2,6 +2,7 @@ package cegepst.finalGame.player;
 
 import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
+import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.Weapon;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
@@ -28,8 +29,8 @@ public class Player extends ControllableEntity {
         setDimension(32, 32);
         setSpeed(3);
         setDashSpeed(15);
-        walkingAnimations = new MovementAnimations(SPRITE_PATH, width, height, 0, 0);
-        sword = new Sword("images/sword.png", 78, 26);
+        walkingAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
+        sword = new Sword("images/sword.png", new Dimension(52, 26), new Dimension(26));
         dashGhosts = new ArrayList<>();
     }
 
@@ -115,7 +116,7 @@ public class Player extends ControllableEntity {
     }
 
     private Image getBluescale() {
-        return SpriteSplicer.spliceSingleSprite(0, getStartY(), width, height, walkingAnimations.getBluescale());
+        return SpriteSplicer.spliceSingleSprite(0, getStartY(), getWidth(), getHeight(), walkingAnimations.getBluescale());
     }
 
     private int getStartY() {
@@ -123,13 +124,13 @@ public class Player extends ControllableEntity {
             return 0;
         }
         if (getDirection() == Direction.LEFT) {
-            return height;
+            return getHeight();
         }
         if (getDirection() == Direction.RIGHT) {
-            return height * 2;
+            return getHeight() * 2;
         }
         if (getDirection() == Direction.UP) {
-            return height * 2;
+            return getHeight() * 2;
         }
         return 0;
     }

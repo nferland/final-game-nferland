@@ -11,12 +11,13 @@ public abstract class Weapon extends MovableEntity {
     private boolean isAttacking = false;
     private final long attackDuration = 250;
     private long lastAttack = 0l;
+    private Dimension hitboxDimension;
 
-    public Weapon(String path, int width, int height) {
+    public Weapon(String path, Dimension hitboxDimension, Dimension spriteDimension) {
         SPRITE_PATH = path;
-        setDimension(26, 26);
-        movementAnimations = new MovementAnimations(SPRITE_PATH, width, height, 0, 128);
-        setDimension(width, height);
+        setDimension(spriteDimension);
+        movementAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 128);
+        setHitboxDimension(hitboxDimension);
     }
 
     public void updateIsAttacking() {
@@ -35,5 +36,21 @@ public abstract class Weapon extends MovableEntity {
 
     public boolean isAttacking() {
         return isAttacking;
+    }
+
+    public void setHitboxDimension(int hitboxWidth, int hitboxHeight) {
+        hitboxDimension.setDimension(hitboxWidth, hitboxHeight);
+    }
+
+    public void setHitboxDimension(Dimension dimension) {
+        hitboxDimension.setDimension(dimension);
+    }
+
+    public int getHitboxWidth() {
+        return hitboxDimension.getWidth();
+    }
+
+    public int getHitboxHeight() {
+        return hitboxDimension.getHeight();
     }
 }

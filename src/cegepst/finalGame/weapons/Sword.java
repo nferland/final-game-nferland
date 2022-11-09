@@ -5,13 +5,14 @@ import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.Weapon;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.ImageLoader;
+import cegepst.engine.entities.Dimension;
 
 import java.awt.*;
 
 public class Sword extends Weapon {
 
-    public Sword(String path, int width, int height) {
-        super(path, width, height);
+    public Sword(String path, Dimension hitboxDimension, Dimension spriteDimension) {
+        super(path, hitboxDimension,spriteDimension);
 
     }
 
@@ -24,15 +25,15 @@ public class Sword extends Weapon {
 
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawRectangle(x, y, width, height, new Color(255, 0, 0, 100));
+        buffer.drawRectangle(x, y, getWidth(), getHeight(), new Color(255, 0, 0, 100));
     }
 
     public void updatePlacement(MovableEntity master) {
         switch (getDirection()) {
-            case UP: teleportUp(master); break;
-            case DOWN: teleportDown(master); break;
-            case LEFT: teleportLeft(master); break;
-            case RIGHT: teleportRight(master); break;
+            case UP -> teleportUp(master);
+            case DOWN -> teleportDown(master);
+            case LEFT -> teleportLeft(master);
+            case RIGHT -> teleportRight(master);
         }
     }
 
@@ -48,27 +49,25 @@ public class Sword extends Weapon {
 
     private void updateDimension() {
         if (getDirection() == Direction.DOWN || getDirection() == Direction.UP) {
-            width = 78;
-            height = 26;
+            setHitboxDimension(52, 26);
             return;
         }
-        width = 26;
-        height = 78;
+        setHitboxDimension(26, 52);
     }
 
     private void teleportUp(MovableEntity master) {
-        teleport(master.getX() - (width - master.getWidth()) / 2, master.getY() - height);
+        teleport(master.getX() - (getWidth() - master.getWidth()) / 2, master.getY() - getHeight());
     }
 
     private void teleportDown(MovableEntity master) {
-        teleport(master.getX() - (width - master.getWidth()) / 2, master.getY() + master.getHeight());
+        teleport(master.getX() - (getWidth() - master.getWidth()) / 2, master.getY() + master.getHeight());
     }
 
     private void teleportLeft(MovableEntity master) {
-        teleport(master.getX() - width, master.getY() - (height - master.getHeight()) / 2);
+         teleport(master.getX() - getWidth(), master.getY() - (getHeight() - master.getHeight()) / 2);
     }
 
     private void teleportRight(MovableEntity master) {
-        teleport(master.getX() + master.getWidth(), master.getY() - (height - master.getHeight()) / 2);
+        teleport(master.getX() + master.getWidth(), master.getY() - (getHeight() - master.getHeight()) / 2);
     }
 }

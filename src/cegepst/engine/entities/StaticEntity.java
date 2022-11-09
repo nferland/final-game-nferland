@@ -11,8 +11,7 @@ public abstract class StaticEntity {
 
     protected int x;
     protected int y;
-    protected int width;
-    protected int height;
+    protected Dimension dimension;
 
     public abstract void draw(Buffer buffer);
 
@@ -27,9 +26,12 @@ public abstract class StaticEntity {
         this.y = y;
     }
 
+    public void setDimension(Dimension dimension) {
+        this.dimension.setDimension(dimension);
+    }
+
     public void setDimension(int width, int height) {
-        this.width = width;
-        this.height = height;
+        this.dimension.setDimension(width, height);
     }
 
     public int getX() {
@@ -41,11 +43,11 @@ public abstract class StaticEntity {
     }
 
     public int getWidth() {
-        return width;
+        return dimension.getWidth();
     }
 
     public int getHeight() {
-        return height;
+        return dimension.getHeight();
     }
 
     public boolean intersectWith(StaticEntity other) {
@@ -53,6 +55,6 @@ public abstract class StaticEntity {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
+        return new Rectangle(x, y, getWidth(), getHeight());
     }
 }
