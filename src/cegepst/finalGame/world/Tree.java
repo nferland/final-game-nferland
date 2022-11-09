@@ -2,6 +2,7 @@ package cegepst.finalGame.world;
 
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.entities.StaticEntity;
+import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 
 import java.awt.*;
@@ -19,8 +20,8 @@ public class Tree extends StaticEntity {
     }
 
     @Override
-    public void draw(Buffer buffer) {
-        buffer.drawImage(image, x, y);
+    public void draw(Buffer buffer, Camera camera) {
+        buffer.drawImage(image, x - camera.getxOffset(), y - camera.getyOffset());
         //blockade.draw(buffer);
     }
 

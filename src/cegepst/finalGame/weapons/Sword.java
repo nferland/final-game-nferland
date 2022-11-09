@@ -4,6 +4,7 @@ import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.Weapon;
 import cegepst.engine.graphics.Animator;
 import cegepst.engine.graphics.Buffer;
+import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.entities.Dimension;
 
@@ -23,8 +24,9 @@ public class Sword extends Weapon {
     }
 
     @Override
-    public void draw(Buffer buffer) {
-        buffer.drawImage(Animator.draw(getDirection(), animations, animations.getCurrentAnimationFrame()), x, y);
+    public void draw(Buffer buffer, Camera camera) {
+        buffer.drawImage(Animator.draw(getDirection(), animations, animations.getCurrentAnimationFrame()),
+                x - camera.getxOffset(), y - camera.getyOffset());
     }
 
     public void updatePlacement(MovableEntity master) {

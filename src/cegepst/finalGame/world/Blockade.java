@@ -4,6 +4,7 @@ import cegepst.engine.entities.Dimension;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.entities.physic.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
+import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 
 import java.awt.*;
@@ -16,8 +17,9 @@ public class Blockade extends StaticEntity {
     }
 
     @Override
-    public void draw(Buffer buffer) {
-        buffer.drawRectangle(x, y, getWidth(), getHeight(),
+    public void draw(Buffer buffer, Camera camera) {
+        buffer.drawRectangle(x - camera.getxOffset(), y - camera.getyOffset(),
+                getWidth(), getHeight(),
                 new Color(255, 0, 0, 100));
     }
 

@@ -3,6 +3,7 @@ package cegepst.finalGame.player;
 import cegepst.engine.GameTime;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.graphics.Buffer;
+import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.SpriteSplicer;
 
@@ -29,8 +30,8 @@ public class DashGhost extends StaticEntity {
     }
 
     @Override
-    public void draw(Buffer buffer) {
-        buffer.drawImage(sprite, x, y);
+    public void draw(Buffer buffer, Camera camera) {
+        buffer.drawImage(sprite, x - camera.getxOffset(), y - camera.getyOffset());
     }
 
     @Override

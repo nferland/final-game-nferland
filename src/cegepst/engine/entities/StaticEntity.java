@@ -1,6 +1,7 @@
 package cegepst.engine.entities;
 
 import cegepst.engine.graphics.Buffer;
+import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ public abstract class StaticEntity {
     protected int y;
     protected Dimension dimension;
 
-    public abstract void draw(Buffer buffer);
+    public abstract void draw(Buffer buffer, Camera camera);
 
     public abstract void load(ImageLoader imageLoader);
 

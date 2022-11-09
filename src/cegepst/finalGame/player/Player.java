@@ -3,10 +3,10 @@ package cegepst.finalGame.player;
 import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.Weapon;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
+import cegepst.engine.graphics.Camera;
 import cegepst.finalGame.audio.Sound;
 import cegepst.finalGame.weapons.Sword;
 
@@ -42,14 +42,16 @@ public class Player extends ControllableEntity {
     }
 
     @Override
-    public void draw(Buffer buffer) {
-        drawWeapons(buffer);
+    public void draw(Buffer buffer, Camera camera) {
+        drawWeapons(buffer, camera);
         if (isDashing()) {
-            buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getDashFrame()), x, y);
-            drawDashGhosts(buffer);
+            buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getDashFrame()),
+                    x - camera.getxOffset(), y - camera.getyOffset());
+            drawDashGhosts(buffer, camera);
             return;
         }
-        buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getCurrentAnimationFrame()), x, y);
+        buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getCurrentAnimationFrame()),
+                x - camera.getxOffset(), y - camera.getyOffset());
     }
 
     @Override
@@ -92,15 +94,15 @@ public class Player extends ControllableEntity {
         sword.updatePlacement(this);
     }
 
-    private void drawDashGhosts(Buffer buffer) {
+    private void drawDashGhosts(Buffer buffer, Camera camera) {
         for (DashGhost dashGhost : dashGhosts) {
-            dashGhost.draw(buffer);
+            dashGhost.draw(buffer, camera);
         }
     }
 
-    private void drawWeapons(Buffer buffer) {
+    private void drawWeapons(Buffer buffer, Camera camera) {
         if(sword.isAttacking()) {
-            sword.draw(buffer);
+            sword.draw(buffer, camera);
         }
     }
 
