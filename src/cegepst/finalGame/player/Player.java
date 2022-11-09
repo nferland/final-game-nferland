@@ -56,7 +56,7 @@ public class Player extends ControllableEntity {
     public void update() {
         super.update();
         moveWithController();
-        Animator.animate(hasMoved(), walkingAnimations);
+        Animator.animate(hasMoved(), walkingAnimations, 1);
         updateDashGhosts();
         updateSword();
     }

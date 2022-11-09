@@ -20,7 +20,7 @@ public class Animator {
         return animations.getDownFrames()[1];
     }
 
-    public static void animate(boolean moved, Animations animations) {
+    public static void animate(boolean moved, Animations animations, int defaultFrame) {
         int nextFrame = animations.getNextFrame();
         if (moved) {
             --nextFrame;
@@ -32,7 +32,7 @@ public class Animator {
                 nextFrame = StaticEntity.ANIMATION_SPEED;
             }
         } else {
-            animations.setCurrentAnimationFrame(1);
+            animations.setCurrentAnimationFrame(defaultFrame);
         }
         animations.setNextFrame(nextFrame);
     }
