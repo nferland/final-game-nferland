@@ -30,7 +30,7 @@ public class Player extends ControllableEntity {
         setSpeed(3);
         setDashSpeed(15);
         walkingAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
-        sword = new Sword("images/sword.png", new Dimension(52, 26), new Dimension(26));
+        sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32));
         dashGhosts = new ArrayList<>();
     }
 
@@ -43,13 +43,13 @@ public class Player extends ControllableEntity {
 
     @Override
     public void draw(Buffer buffer) {
+        drawWeapons(buffer);
         if (isDashing()) {
             buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getDashFrame()), x, y);
             drawDashGhosts(buffer);
             return;
         }
         buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getCurrentAnimationFrame()), x, y);
-        drawWeapons(buffer);
     }
 
     @Override
