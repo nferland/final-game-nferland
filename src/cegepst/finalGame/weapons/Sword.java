@@ -1,14 +1,11 @@
 package cegepst.finalGame.weapons;
 
-import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.Weapon;
 import cegepst.engine.graphics.Animator;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.entities.Dimension;
-
-import java.awt.*;
 
 public class Sword extends Weapon {
 
@@ -54,18 +51,38 @@ public class Sword extends Weapon {
     }
 
     private void teleportUp(MovableEntity master) {
-        teleport(master.getX() - (getWidth() - master.getWidth()) / 2, master.getY() - getHeight());
+        teleport(master.getX() + topXValue(master), master.getY() - halfOf(getHitboxHeight()));
     }
 
     private void teleportDown(MovableEntity master) {
-        teleport(master.getX() - (getWidth() - master.getWidth()) / 2, master.getY() + master.getHeight());
+        teleport(master.getX(), master.getY() + master.getHeight() - halfOf(getHitboxHeight()));
     }
 
     private void teleportLeft(MovableEntity master) {
-         teleport(master.getX() - getWidth(), master.getY() - (getHeight() - master.getHeight()) / 2);
+         teleport(master.getX() - halfOf(getHitboxWidth()), master.getY() + sideYValue(master));
     }
 
     private void teleportRight(MovableEntity master) {
-        teleport(master.getX() + master.getWidth(), master.getY() - (getHeight() - master.getHeight()) / 2);
+        teleport(master.getX() + rightXValue(master), master.getY() + sideYValue(master));
+    }
+
+    private int sideYValue(MovableEntity master) {
+        return (master.getHeight() - threeQuarterOf(getHitboxHeight()));
+    }
+
+    private int topXValue(MovableEntity master) {
+        return halfOf(master.getWidth() - getHitboxWidth());
+    }
+
+    private int rightXValue(MovableEntity master) {
+        return master.getWidth() - halfOf(getHitboxWidth());
+    }
+
+    private int halfOf(int value) {
+        return value / 2;
+    }
+
+    private int threeQuarterOf(int value) {
+        return (3 * value) / 4;
     }
 }
