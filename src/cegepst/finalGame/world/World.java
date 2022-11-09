@@ -15,13 +15,11 @@ public class World {
     public World() {
         blockades = new ArrayList<>();
 
-        Blockade topBorder = new Blockade();
+        Blockade topBorder = new Blockade(400, 48);
         topBorder.teleport(0, 0);
-        topBorder.setDimension(400, 48);
 
-        Blockade topBorder2 = new Blockade();
+        Blockade topBorder2 = new Blockade(400, 48);
         topBorder2.teleport(464, 0);
-        topBorder2.setDimension(400, 48);
 
         blockades.add(topBorder);
         blockades.add(topBorder2);

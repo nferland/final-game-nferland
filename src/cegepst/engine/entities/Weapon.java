@@ -15,9 +15,9 @@ public abstract class Weapon extends MovableEntity {
 
     public Weapon(String path, Dimension hitboxDimension, Dimension spriteDimension) {
         SPRITE_PATH = path;
-        setDimension(spriteDimension);
+        this.dimension = new Dimension(spriteDimension.getWidth(), spriteDimension.getHeight());
         movementAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 128);
-        setHitboxDimension(hitboxDimension);
+        this.hitboxDimension =  new Dimension(hitboxDimension.getWidth(), hitboxDimension.getHeight());
     }
 
     public void updateIsAttacking() {
