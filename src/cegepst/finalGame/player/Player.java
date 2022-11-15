@@ -25,7 +25,7 @@ public class Player extends ControllableEntity {
 
     public Player(MovementController controller) {
         super(controller);
-        this.dimension = new Dimension(32, 32);
+        this.dimension = new Dimension(32);
         setSpeed(3);
         setDashSpeed(15);
         walkingAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
