@@ -8,14 +8,15 @@ import java.awt.*;
 public class Animator {
 
     public static Image draw(Direction direction, Animations animations, int currentAnimationFrame) {
-        if (direction == Direction.RIGHT) {
-            return animations.getRightFrames()[currentAnimationFrame];
-        } else if (direction == Direction.LEFT) {
-            return animations.getLeftFrames()[currentAnimationFrame];
-        } else if (direction == Direction.UP) {
-            return animations.getUpFrames()[currentAnimationFrame];
-        } else if (direction == Direction.DOWN) {
-            return animations.getDownFrames()[currentAnimationFrame];
+        switch (direction){
+            case RIGHT:
+                return animations.getRightFrames()[currentAnimationFrame];
+            case DOWN:
+                return animations.getDownFrames()[currentAnimationFrame];
+            case LEFT:
+                return animations.getLeftFrames()[currentAnimationFrame];
+            case UP:
+                return animations.getUpFrames()[currentAnimationFrame];
         }
         return animations.getDownFrames()[1];
     }
