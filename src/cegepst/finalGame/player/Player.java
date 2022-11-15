@@ -83,11 +83,12 @@ public class Player extends ControllableEntity {
     }
 
     private void updateDashGhosts() {
-        addDashGhost();
-        destroyDeadDashGhosts();
-        if (!isDashing()) {
-            dashGhosts.clear();
+        if (isDashing()) {
+            addDashGhost();
+            destroyDeadDashGhosts();
+            return;
         }
+        dashGhosts.clear();
     }
 
     private void updateSword() {
