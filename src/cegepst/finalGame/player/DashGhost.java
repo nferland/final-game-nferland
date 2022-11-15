@@ -1,6 +1,7 @@
 package cegepst.finalGame.player;
 
 import cegepst.engine.GameTime;
+import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.Camera;
@@ -23,6 +24,7 @@ public class DashGhost extends StaticEntity {
         this.x = x;
         this.y = y;
         this.creationTime = creationTime;
+        dimension = new Dimension(32);
     }
 
     public boolean stillAlive() {
@@ -30,8 +32,8 @@ public class DashGhost extends StaticEntity {
     }
 
     @Override
-    public void draw(Buffer buffer, Camera camera) {
-        buffer.drawImage(sprite, x - camera.getxOffset(), y - camera.getyOffset());
+    public void draw(Buffer buffer) {
+        buffer.drawImage(sprite, x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
     }
 
     @Override

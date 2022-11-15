@@ -20,8 +20,8 @@ public class Tree extends StaticEntity {
     }
 
     @Override
-    public void draw(Buffer buffer, Camera camera) {
-        buffer.drawImage(image, x - camera.getxOffset(), y - camera.getyOffset());
+    public void draw(Buffer buffer) {
+        buffer.drawImage(image, x, y);
         //blockade.draw(buffer);
     }
 

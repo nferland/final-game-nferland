@@ -6,7 +6,6 @@ import cegepst.engine.entities.Dimension;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
-import cegepst.engine.graphics.Camera;
 import cegepst.finalGame.audio.Sound;
 import cegepst.finalGame.weapons.Sword;
 
@@ -42,16 +41,19 @@ public class Player extends ControllableEntity {
     }
 
     @Override
-    public void draw(Buffer buffer, Camera camera) {
-        drawWeapons(buffer, camera);
+    public void draw(Buffer buffer) {
+        drawWeapons(buffer);
         if (isDashing()) {
             buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getDashFrame()),
-                    x - camera.getxOffset(), y - camera.getyOffset());
-            drawDashGhosts(buffer, camera);
+                    x - Camera.getInstance().getX() , y - Camera.getInstance().getY());
+            drawDashGhosts(buffer);
             return;
         }
+        if(sword.isAttacking()) {
+            sword.draw(buffer);
+        }
         buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getCurrentAnimationFrame()),
-                x - camera.getxOffset(), y - camera.getyOffset());
+                x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
     }
 
     @Override
@@ -94,15 +96,15 @@ public class Player extends ControllableEntity {
         sword.updatePlacement(this);
     }
 
-    private void drawDashGhosts(Buffer buffer, Camera camera) {
+    private void drawDashGhosts(Buffer buffer) {
         for (DashGhost dashGhost : dashGhosts) {
-            dashGhost.draw(buffer, camera);
+            dashGhost.draw(buffer);
         }
     }
 
-    private void drawWeapons(Buffer buffer, Camera camera) {
+    private void drawWeapons(Buffer buffer) {
         if(sword.isAttacking()) {
-            sword.draw(buffer, camera);
+            sword.draw(buffer);
         }
     }
 

@@ -16,18 +16,14 @@ public class DungeonCrawlerGame extends Game {
     private ImageLoader imageLoader;
     private GamePad gamePad;
     private Player player;
-    private Camera camera;
     private World world;
-    private Tree tree;
     private Hud hud;
 
     @Override
     protected void initialize() {
         imageLoader = new ImageLoader();
         initializePlayer();
-        camera = new Camera(player, new Dimension(800, 600));
         initializeWorld();
-        initializeTree();
         Music.WIND_BACKGROUND.play();
 
         //RenderingEngine.getInstance().getScreen().fullScreen();
@@ -38,16 +34,12 @@ public class DungeonCrawlerGame extends Game {
     protected void update() {
         updateInputs();
         player.update();
-        camera.update();
-        updateTreeBlockade();
+        Camera.getInstance().update(player);
     }
 
     @Override
     protected void drawOnBuffer(Buffer buffer) {
-        world.draw(buffer, camera);
-        // 80 (tree height) - 28 (max for layer switch)
-        drawTreeLayer(buffer);
-
+        Camera.getInstance().draw(buffer, world.getBackground());
         hud.draw(buffer);
     }
 
@@ -82,28 +74,5 @@ public class DungeonCrawlerGame extends Game {
     private void initializeWorld() {
         world = new World();
         world.load(imageLoader);
-    }
-
-    private void initializeTree() {
-        tree = new Tree(300, 350);
-        tree.load(imageLoader);
-    }
-
-    private void updateTreeBlockade() {
-        if (player.getY() < tree.getY() + 52) {
-            tree.blockadeFromTop();
-        } else {
-            tree.blockadeFromBottom();
-        }
-    }
-
-    private void drawTreeLayer(Buffer buffer) {
-        if (player.getY() < tree.getY() + 52) {
-            player.draw(buffer, camera);
-            tree.draw(buffer, camera);
-        } else {
-            tree.draw(buffer, camera);
-            player.draw(buffer, camera);
-        }
     }
 }

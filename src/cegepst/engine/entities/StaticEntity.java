@@ -14,7 +14,7 @@ public abstract class StaticEntity {
     protected int y;
     protected Dimension dimension;
 
-    public abstract void draw(Buffer buffer, Camera camera);
+    public abstract void draw(Buffer buffer);
 
     public abstract void load(ImageLoader imageLoader);
 

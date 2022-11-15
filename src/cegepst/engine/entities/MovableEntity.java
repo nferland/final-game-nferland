@@ -138,4 +138,6 @@ public abstract class MovableEntity extends StaticEntity {
     private Rectangle getRightHitBox() {
         return new Rectangle(x + getWidth(), y, speed, getHeight());
     }
+
+    public abstract void draw(Buffer buffer);
 }

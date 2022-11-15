@@ -24,9 +24,9 @@ public class Sword extends Weapon {
     }
 
     @Override
-    public void draw(Buffer buffer, Camera camera) {
+    public void draw(Buffer buffer) {
         buffer.drawImage(Animator.draw(getDirection(), animations, animations.getCurrentAnimationFrame()),
-                x - camera.getxOffset(), y - camera.getyOffset());
+                x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
     }
 
     public void updatePlacement(MovableEntity master) {
