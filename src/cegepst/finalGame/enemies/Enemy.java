@@ -8,9 +8,18 @@ import cegepst.engine.entities.MovableEntity;
 public abstract class Enemy extends MovableEntity {
 
     private final ControllableEntity player;
+    private int damage;
 
     public Enemy(ControllableEntity player) {
         this.player = player;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     protected void moveTowardPlayer() {
@@ -22,6 +31,16 @@ public abstract class Enemy extends MovableEntity {
                 }
             }
             verticalMovement();
+        }
+    }
+
+    protected boolean intersectWithPlayer() {
+        return hitBoxIntersectWith(player);
+    }
+
+    protected void hurtPlayer() {
+        if (intersectWithPlayer()) {
+            player.hurt(getDamage(), getDirection());
         }
     }
 

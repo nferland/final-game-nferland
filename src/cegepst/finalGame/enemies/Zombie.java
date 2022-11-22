@@ -13,6 +13,7 @@ public class Zombie extends Enemy{
         super(player);
         setSpeed(1);
         teleport(x, y);
+        setDamage(1);
         this.dimension = new Dimension(32);
         movementAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
     }
@@ -20,6 +21,7 @@ public class Zombie extends Enemy{
     public void update() {
         super.update();
         moveTowardPlayer();
+        hurtPlayer();
         Animator.animate(hasMoved(), movementAnimations, 1);
     }
 
@@ -44,4 +46,5 @@ public class Zombie extends Enemy{
     protected void loadAnimationFrames() {
         movementAnimations.loadAnimations();
     }
+
 }
