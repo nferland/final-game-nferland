@@ -12,7 +12,6 @@ public class Camera extends MovableEntity {
     private static Camera instance;
 
     private MovableEntity mainEntity;
-    private Dimension screenDimension;
 
     public static Camera getInstance() {
         if (instance == null) {
@@ -22,36 +21,27 @@ public class Camera extends MovableEntity {
     }
 
     private Camera() {
-        this.screenDimension = new Dimension(800, 600);
         this.dimension = new Dimension(800, 600);
         teleport(0, 0);
     }
 
-    public void update(MovableEntity followedEntity) {
+    public void update(MovableEntity followedEntity, Dimension worldDimension) {
         mainEntity = followedEntity;
-        int camX = (mainEntity.getX() - mainEntity.getWidth() / 2) - screenDimension.getWidth() / 2;
-        int camY = (mainEntity.getY() - mainEntity.getHeight() / 2) - screenDimension.getHeight() / 2;
+        int camX = (mainEntity.getX() - mainEntity.getWidth() / 2) - getWidth() / 2;
+        int camY = (mainEntity.getY() - mainEntity.getHeight() / 2) - getHeight() / 2;
         if (camX < 0) {
             camX = 0;
         }
         if (camY < 0) {
             camY = 0;
         }
-        if (camX > screenDimension.getWidth() ) {
-            camX = screenDimension.getWidth() / 2 + mainEntity.getSpeed();
+        if (camX + this.getWidth() > worldDimension.getWidth() ) {
+            camX = worldDimension.getWidth() - this.getWidth();
         }
-        if (camY > screenDimension.getHeight()) {
-            camY = screenDimension.getHeight() / 2 + mainEntity.getSpeed();
+        if (camY + this.getHeight() > worldDimension.getHeight()) {
+            camY = worldDimension.getHeight() - this.getHeight();
         }
         teleport(camX, camY);
-    }
-
-    public int getxOffset(StaticEntity entity) {
-        return (entity.getWidth() / 2 - mainEntity.getWidth() / 2) - x;
-    }
-
-    public int getyOffset(StaticEntity entity) {
-        return (entity.getHeight() / 2 - mainEntity.getHeight() / 2) - y;
     }
 
 

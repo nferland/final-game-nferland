@@ -34,7 +34,7 @@ public class DungeonCrawlerGame extends Game {
     protected void update() {
         updateInputs();
         player.update();
-        Camera.getInstance().update(player);
+        Camera.getInstance().update(player, world.getDimension());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class DungeonCrawlerGame extends Game {
     }
 
     private void initializeWorld() {
-        world = new World();
+        world = new World(new Dimension(2400, 960));
         world.load(imageLoader);
     }
 }

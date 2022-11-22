@@ -15,13 +15,15 @@ public class World {
     private static final String MAP_PATH = "maps/outdoor.png";
     private BufferedImage background;
     private ArrayList<Blockade> blockades;
+    private Dimension dimension;
     private int x;
     private int y;
 
-    public World() {
+    public World(Dimension dimension) {
         blockades = new ArrayList<>();
         x = 0;
         y = 0;
+        this.dimension = dimension;
 
         Blockade topBorder = new Blockade(2400, 48);
         topBorder.teleport(0, 0);
@@ -47,5 +49,9 @@ public class World {
 
     public BufferedImage getBackground() {
         return background;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
     }
 }
