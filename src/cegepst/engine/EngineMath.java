@@ -1,6 +1,6 @@
 package cegepst.engine;
 
-public class Maths {
+public class EngineMath {
 
     public static int halfOf(int value) {
         return value / 2;
