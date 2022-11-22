@@ -71,13 +71,4 @@ public class Camera extends MovableEntity {
     protected void loadAnimationFrames() {
 
     }
-
-//    private void checkOffset(int deltaX, int deltaY) {
-//        if(xOffset < minXOffset) {
-//            xOffset -= deltaX;
-//        }
-//        if (yOffset < minYOffset) {
-//            yOffset -= deltaY;
-//        }
-//    }
 }
