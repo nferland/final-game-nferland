@@ -125,6 +125,10 @@ public abstract class MovableEntity extends StaticEntity {
         this.dashDuration = dashDuration;
     }
 
+    protected Collision getCollision() {
+        return collision;
+    }
+
     private Rectangle getUpperHitBox() {
         return new Rectangle(x, y - speed, getWidth(), speed);
     }
