@@ -21,11 +21,14 @@ public class Hud {
     }
 
     private Color getHealthBarColor(double width) {
-        if (width >= 0.6) {
+        if (width >= 0.75) {
             return Color.GREEN;
         }
-        if(width >= 0.3) {
+        if(width >= 0.5) {
             return Color.yellow;
+        }
+        if(width >= 0.25) {
+            return Color.orange;
         }
         return Color.red;
     }
