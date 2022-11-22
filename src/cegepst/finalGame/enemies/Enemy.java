@@ -4,7 +4,6 @@ import cegepst.engine.EngineMath;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.MovableEntity;
-import cegepst.engine.entities.physic.CollidableRepository;
 
 public abstract class Enemy extends MovableEntity {
 
@@ -12,7 +11,6 @@ public abstract class Enemy extends MovableEntity {
 
     public Enemy(ControllableEntity player) {
         this.player = player;
-        CollidableRepository.getInstance().registerEntity(this);
     }
 
     protected void moveTowardPlayer() {
