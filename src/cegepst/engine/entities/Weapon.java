@@ -1,7 +1,6 @@
 package cegepst.engine.entities;
 
 import cegepst.engine.GameTime;
-import cegepst.engine.graphics.MovementAnimations;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.WeaponAnimations;
 
