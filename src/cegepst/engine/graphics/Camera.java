@@ -1,5 +1,6 @@
 package cegepst.engine.graphics;
 
+import cegepst.engine.EngineMath;
 import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.StaticEntity;
@@ -26,8 +27,8 @@ public class Camera extends MovableEntity {
 
     public void update(MovableEntity followedEntity, Dimension worldDimension) {
         mainEntity = followedEntity;
-        int camX = (mainEntity.getX() - mainEntity.getWidth() / 2) - getWidth() / 2;
-        int camY = (mainEntity.getY() - mainEntity.getHeight() / 2) - getHeight() / 2;
+        int camX = (mainEntity.getX() - EngineMath.halfOf(mainEntity.getWidth())) - EngineMath.halfOf(getWidth());
+        int camY = (mainEntity.getY() - EngineMath.halfOf(mainEntity.getHeight())) - EngineMath.halfOf(getHeight());
         if (camX < 0) {
             camX = 0;
         }
