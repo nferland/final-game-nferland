@@ -49,7 +49,7 @@ public class DungeonCrawlerGame extends Game {
     protected void drawOnBuffer(Buffer buffer) {
         Camera.getInstance().draw(buffer, world.getBackground());
         drawEnemies(buffer);
-        hud.draw(buffer);
+        hud.draw(buffer, player);
     }
 
     private void updateInputs() {

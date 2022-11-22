@@ -37,6 +37,22 @@ public abstract class ControllableEntity extends MovableEntity {
         knockBack(kbDirection);
     }
 
+    public int getMaxHealthPoint() {
+        return maxHealthPoint;
+    }
+
+    public void setMaxHealthPoint(int maxHealthPoint) {
+        this.maxHealthPoint = maxHealthPoint;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
+    }
+
     private void die() {
         // TODO: kill the player and restart game
     }
