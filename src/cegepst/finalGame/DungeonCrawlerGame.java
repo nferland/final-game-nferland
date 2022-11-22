@@ -48,6 +48,7 @@ public class DungeonCrawlerGame extends Game {
     @Override
     protected void drawOnBuffer(Buffer buffer) {
         Camera.getInstance().draw(buffer, world.getBackground());
+        drawEnemies(buffer);
         hud.draw(buffer);
     }
 
@@ -95,5 +96,12 @@ public class DungeonCrawlerGame extends Game {
     private void initializeWorld() {
         world = new World(new Dimension(2400, 960));
         world.load(imageLoader);
+    }
+
+    private void drawEnemies(Buffer buffer) {
+        for (Enemy enemy :
+                enemies) {
+            enemy.draw(buffer);
+        }
     }
 }
