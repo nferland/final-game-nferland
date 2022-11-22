@@ -80,11 +80,4 @@ public class Sword extends Weapon {
         return master.getWidth() - halfOf(getHitboxWidth());
     }
 
-    private int halfOf(int value) {
-        return value / 2;
-    }
-
-    private int threeQuarterOf(int value) {
-        return (3 * value) / 4;
-    }
 }
