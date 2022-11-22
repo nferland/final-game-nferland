@@ -1,15 +1,20 @@
 package cegepst.finalGame.enemies;
 
 import cegepst.engine.entities.ControllableEntity;
+import cegepst.engine.entities.Dimension;
 import cegepst.engine.graphics.*;
 
 public class Zombie extends Enemy{
-    private final String SPRIT_PATH = "images/zombie.png";
+    private final String SPRITE_PATH = "images/zombie.png";
 
     private MovementAnimations movementAnimations;
 
-    public Zombie(ControllableEntity player) {
+    public Zombie(ControllableEntity player, int x, int y) {
         super(player);
+        setSpeed(1);
+        teleport(x, y);
+        this.dimension = new Dimension(32);
+        movementAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
     }
 
     public void update() {
