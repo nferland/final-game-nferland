@@ -20,6 +20,8 @@ public abstract class MovableEntity extends StaticEntity {
     private boolean moved = false;
     private Collision collision;
 
+    public abstract void draw(Buffer buffer);
+
     public MovableEntity() {
         collision = new Collision(this);
     }
@@ -139,5 +141,4 @@ public abstract class MovableEntity extends StaticEntity {
         return new Rectangle(x + getWidth(), y, speed, getHeight());
     }
 
-    public abstract void draw(Buffer buffer);
 }
