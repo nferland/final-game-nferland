@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class World {
 
     private static final String MAP_PATH = "maps/outdoor.png";
-    private BufferedImage background;
+    private Image background;
     private ArrayList<Blockade> blockades;
     private Dimension dimension;
     private int x;
@@ -44,10 +44,10 @@ public class World {
     }
 
     public void load(ImageLoader imageLoader) {
-        background = imageLoader.loadBufferedImage(MAP_PATH);
+        background = imageLoader.loadImage(MAP_PATH);
     }
 
-    public BufferedImage getBackground() {
+    public Image getBackground() {
         return background;
     }
 

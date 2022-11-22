@@ -4,8 +4,7 @@ import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.physic.CollidableRepository;
-
-import java.awt.image.BufferedImage;
+import java.awt.*;
 
 public class Camera extends MovableEntity {
 
@@ -45,8 +44,8 @@ public class Camera extends MovableEntity {
     }
 
 
-    public void draw(Buffer buffer, BufferedImage world) {
-        buffer.drawImage(world.getSubimage(Camera.getInstance().getX(), Camera.getInstance().getY(), 800, 600), 0, 0);
+    public void draw(Buffer buffer, Image world) {
+        buffer.drawImage(world, -getX(), -getY());
         for (StaticEntity entity: CollidableRepository.getInstance()) {
             entity.draw(buffer);
         }
