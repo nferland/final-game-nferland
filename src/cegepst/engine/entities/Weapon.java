@@ -1,6 +1,7 @@
 package cegepst.engine.entities;
 
 import cegepst.engine.GameTime;
+import cegepst.engine.Maths;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.WeaponAnimations;
 
@@ -10,7 +11,7 @@ public abstract class Weapon extends MovableEntity {
     private final long ATTACK_DURATION = 250;
 
     private boolean isAttacking = false;
-    private long lastAttack = 0l;
+    private long lastAttack = 0L;
     private Dimension hitboxDimension;
     protected WeaponAnimations animations;
 
@@ -54,4 +55,33 @@ public abstract class Weapon extends MovableEntity {
     public int getHitboxHeight() {
         return hitboxDimension.getHeight();
     }
+
+    protected void teleportUp(MovableEntity master) {
+        teleport(master.getX() + topXValue(master), master.getY() - Maths.halfOf(getHitboxHeight()));
+    }
+
+    protected void teleportDown(MovableEntity master) {
+        teleport(master.getX(), master.getY() + master.getHeight() - Maths.halfOf(getHitboxHeight()));
+    }
+
+    protected void teleportLeft(MovableEntity master) {
+        teleport(master.getX() - Maths.halfOf(getHitboxWidth()), master.getY() + sideYValue(master));
+    }
+
+    protected void teleportRight(MovableEntity master) {
+        teleport(master.getX() + rightXValue(master), master.getY() + sideYValue(master));
+    }
+
+    private int sideYValue(MovableEntity master) {
+        return (master.getHeight() - Maths.threeQuarterOf(getHitboxHeight()));
+    }
+
+    private int topXValue(MovableEntity master) {
+        return Maths.halfOf(master.getWidth() - getHitboxWidth());
+    }
+
+    private int rightXValue(MovableEntity master) {
+        return master.getWidth() - Maths.halfOf(getHitboxWidth());
+    }
+
 }

@@ -52,32 +52,4 @@ public class Sword extends Weapon {
         Animator.animate(isAttacking(), animations, 0);
     }
 
-    private void teleportUp(MovableEntity master) {
-        teleport(master.getX() + topXValue(master), master.getY() - halfOf(getHitboxHeight()));
-    }
-
-    private void teleportDown(MovableEntity master) {
-        teleport(master.getX(), master.getY() + master.getHeight() - halfOf(getHitboxHeight()));
-    }
-
-    private void teleportLeft(MovableEntity master) {
-         teleport(master.getX() - halfOf(getHitboxWidth()), master.getY() + sideYValue(master));
-    }
-
-    private void teleportRight(MovableEntity master) {
-        teleport(master.getX() + rightXValue(master), master.getY() + sideYValue(master));
-    }
-
-    private int sideYValue(MovableEntity master) {
-        return (master.getHeight() - threeQuarterOf(getHitboxHeight()));
-    }
-
-    private int topXValue(MovableEntity master) {
-        return halfOf(master.getWidth() - getHitboxWidth());
-    }
-
-    private int rightXValue(MovableEntity master) {
-        return master.getWidth() - halfOf(getHitboxWidth());
-    }
-
 }
