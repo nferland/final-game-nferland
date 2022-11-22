@@ -25,11 +25,11 @@ public abstract class ControllableEntity extends MovableEntity {
     }
 
     public void hurt(int damage) {
-        if (healthPoint - damage > 0) {
-            healthPoint -= damage;
-            return;
+        healthPoint -= damage;
+        if (healthPoint <= 0) {
+            healthPoint = 0;
+            die();
         }
-        die();
     }
 
     public void hurt(int damage, Direction kbDirection) {
