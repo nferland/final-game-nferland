@@ -34,9 +34,6 @@ public abstract class Weapon extends MovableEntity {
     public void attack() {
         isAttacking = true;
         lastAttack = GameTime.getCurrentTime();
-        if(GameTime.getCurrentTime() - lastAttack < ATTACK_DURATION + ATTACK_COOLDOWN) {
-            isAttacking = false;
-        }
     }
 
     public boolean isAttacking() {
