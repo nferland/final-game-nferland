@@ -3,6 +3,8 @@ package cegepst.engine.entities;
 import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.physic.Collision;
+import cegepst.engine.entities.stateMachines.HurtState;
+import cegepst.engine.entities.stateMachines.MovementState;
 import cegepst.engine.graphics.Buffer;
 import cegepst.finalGame.audio.Sound;
 
@@ -14,11 +16,14 @@ public abstract class MovableEntity extends StaticEntity {
     private int dashSpeed = 5;
     private long dashDuration = 150;
     private long dashLastUsage = 0L;
+    private int maxHealthPoint = 10;
+    private int healthPoint = maxHealthPoint;
     private Direction direction = Direction.UP;
     private int lastX = Integer.MIN_VALUE;
     private int lastY = Integer.MIN_VALUE;
-    private boolean moved = false;
     private Collision collision;
+    protected MovementState movementState = MovementState.Idle;
+    protected HurtState hurtState = HurtState.NotHurt;
 
     public abstract void draw(Buffer buffer);
 
@@ -27,20 +32,20 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     public void update() {
-        moved = false;
+        movementState = movementState.nextState();
     }
 
     public void move() {
         int allowedDistance = collision.getAllowedSpeed(direction);
         x += direction.calculateVelocityX(allowedDistance);
         y += direction.calculateVelocityY(allowedDistance);
-        moved = (x != lastX || y != lastY);
+        movementState = (x != lastX || y != lastY)? MovementState.Moving : movementState;
         lastX = x;
         lastY = y;
     }
 
     public boolean hasMoved() {
-        return moved;
+        return movementState != MovementState.Idle;
     }
 
 
@@ -90,12 +95,48 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     public void dash() {
+        movementState = MovementState.Dashing;
         dashLastUsage = GameTime.getCurrentTime();
         Sound.DASH.play();
+    }
+    public void hurt(int damage) {
+        hurtState = HurtState.Hurt;
+        healthPoint -= damage;
+        if (healthPoint <= 0) {
+            healthPoint = 0;
+            hurtState = HurtState.Dead;
+        }
+    }
+
+    public void hurt(int damage, Direction kbDirection) {
+        if (hurtState != HurtState.Invulnerable){
+            hurt(damage);
+            knockBack(kbDirection);
+        }
+    }
+
+    public int getMaxHealthPoint() {
+        return maxHealthPoint;
+    }
+
+    public void setMaxHealthPoint(int maxHealthPoint) {
+        this.maxHealthPoint = maxHealthPoint;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
     }
 
     public boolean isDashing() {
         return (GameTime.getCurrentTime() - dashLastUsage < dashDuration);
+    }
+
+    public boolean isDead() {
+        return hurtState == HurtState.Dead;
     }
 
     public void setSpeed(int speed) {
@@ -145,4 +186,14 @@ public abstract class MovableEntity extends StaticEntity {
         return new Rectangle(x + getWidth(), y, speed, getHeight());
     }
 
+    protected abstract void die();
+
+    private void knockBack(Direction direction) {
+        int previousSpeed = getSpeed();
+        Direction previousDirection = getDirection();
+        setSpeed(8);
+        move(direction);
+        setSpeed(previousSpeed);
+        setDirection(previousDirection);
+    }
 }
