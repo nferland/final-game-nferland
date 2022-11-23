@@ -1,4 +1,4 @@
-package cegepst.finalGame.enemies;
+package cegepst.engine.entities;
 
 import cegepst.engine.EngineMath;
 import cegepst.engine.controls.Direction;
@@ -12,6 +12,7 @@ public abstract class Enemy extends MovableEntity {
 
     public Enemy(ControllableEntity player) {
         this.player = player;
+        EnemyRepository.getInstance().registerEntity(this);
     }
 
     public int getDamage() {
