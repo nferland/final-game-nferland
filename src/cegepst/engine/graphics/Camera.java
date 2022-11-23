@@ -25,6 +25,11 @@ public class Camera extends MovableEntity {
         teleport(0, 0);
     }
 
+    @Override
+    protected void die() {
+
+    }
+
     public void update(MovableEntity followedEntity, Dimension worldDimension) {
         mainEntity = followedEntity;
         int camX = (mainEntity.getX() - EngineMath.halfOf(mainEntity.getWidth())) - EngineMath.halfOf(getWidth());
