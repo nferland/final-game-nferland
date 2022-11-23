@@ -8,7 +8,8 @@ public enum Sound {
 
     FIRE("gun.wav"),
     PLAYER_ATTACK("hero-attack.wav"),
-    DASH("dash.wav");
+    DASH("dash.wav"),
+    PLAYER_HURT("player-hurt.wav");
 
     private final String audioResourceName;
 

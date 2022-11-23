@@ -4,6 +4,7 @@ import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.stateMachines.AttackState;
+import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
@@ -52,6 +53,9 @@ public class Player extends ControllableEntity {
         }
         buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getCurrentAnimationFrame()),
                 x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
+        if (hurtState == HurtState.Invulnerable) {
+            drawHurt(buffer);
+        }
     }
 
     @Override
@@ -72,6 +76,12 @@ public class Player extends ControllableEntity {
         attackState = AttackState.Melee;
         Sound.PLAYER_ATTACK.play();
         sword.attack();
+    }
+
+    @Override
+    public void hurt(int damage, Direction kbDirection) {
+        super.hurt(damage, kbDirection);
+        Sound.PLAYER_HURT.play();
     }
 
     protected void loadSpriteSheet(ImageLoader imageLoader) {
@@ -145,5 +155,9 @@ public class Player extends ControllableEntity {
             return getHeight() * 2;
         }
         return 0;
+    }
+
+    private void drawHurt(Buffer buffer) {
+        buffer.drawRectangle(x - Camera.getInstance().getX(), y - Camera.getInstance().getY(), getWidth(), getHeight(), new Color(255, 0, 0, 75));
     }
 }
