@@ -83,15 +83,15 @@ public abstract class Weapon extends MovableEntity {
     }
 
     protected void teleportUp(MovableEntity master) {
-        teleport(master.getX() + topXValue(master), master.getY() - EngineMath.halfOf(getHitboxHeight()));
+        teleport(master.getX() + topXValue(master), master.getY() - EngineMath.threeQuarterOf(getHitboxHeight()));
     }
 
     protected void teleportDown(MovableEntity master) {
-        teleport(master.getX(), master.getY() + master.getHeight() - EngineMath.halfOf(getHitboxHeight()));
+        teleport(master.getX(), master.getY() + master.getHeight());
     }
 
     protected void teleportLeft(MovableEntity master) {
-        teleport(master.getX() - EngineMath.halfOf(getHitboxWidth()), master.getY() + sideYValue(master));
+        teleport(master.getX() - EngineMath.threeQuarterOf(getHitboxWidth()), master.getY() + sideYValue(master));
     }
 
     protected void teleportRight(MovableEntity master) {
@@ -107,7 +107,7 @@ public abstract class Weapon extends MovableEntity {
     }
 
     private int rightXValue(MovableEntity master) {
-        return master.getWidth() - EngineMath.halfOf(getHitboxWidth());
+        return master.getWidth() - EngineMath.quarterOf(getHitboxWidth());
     }
 
 }

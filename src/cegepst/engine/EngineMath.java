@@ -4,6 +4,10 @@ import cegepst.engine.entities.StaticEntity;
 
 public class EngineMath {
 
+    public static int quarterOf(int value) {
+        return value / 4;
+    }
+
     public static int halfOf(int value) {
         return value / 2;
     }
