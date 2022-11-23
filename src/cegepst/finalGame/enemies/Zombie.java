@@ -2,9 +2,12 @@ package cegepst.finalGame.enemies;
 
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.Dimension;
+import cegepst.engine.entities.Enemy;
+import cegepst.engine.entities.EnemyRepository;
+import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
 
-public class Zombie extends Enemy{
+public class Zombie extends Enemy {
     private final String SPRITE_PATH = "images/zombie.png";
 
     private MovementAnimations movementAnimations;
@@ -14,6 +17,8 @@ public class Zombie extends Enemy{
         setSpeed(1);
         teleport(x, y);
         setDamage(1);
+        setMaxHealthPoint(6);
+        setHealthPoint(6);
         this.dimension = new Dimension(32);
         movementAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
     }
@@ -23,6 +28,12 @@ public class Zombie extends Enemy{
         moveTowardPlayer();
         hurtPlayer();
         Animator.animate(hasMoved(), movementAnimations, 1);
+    }
+
+    @Override
+    protected void die() {
+        hurtState = HurtState.Dead;
+        EnemyRepository.getInstance().unregisterEntity(this);
     }
 
     @Override
