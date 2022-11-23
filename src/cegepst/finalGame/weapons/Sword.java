@@ -10,8 +10,9 @@ import cegepst.engine.entities.Dimension;
 
 public class Sword extends Weapon {
 
-    public Sword(String path, Dimension hitboxDimension, Dimension spriteDimension) {
+    public Sword(String path, Dimension hitboxDimension, Dimension spriteDimension, int damage) {
         super(path, hitboxDimension,spriteDimension);
+        setDamage(damage);
 
     }
 
@@ -20,13 +21,22 @@ public class Sword extends Weapon {
         super.update();
         updateIsAttacking();
         updateAnimation();
+        if (isAttacking()) {
+            updateHitEnemy();
+        }
+    }
+
+    @Override
+    protected void die() {
 
     }
 
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawImage(Animator.draw(getDirection(), animations, animations.getCurrentAnimationFrame()),
-                x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
+        if( isAttacking()) {
+            buffer.drawImage(Animator.draw(getDirection(), animations, animations.getCurrentAnimationFrame()),
+                    x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
+        }
     }
 
     public void updatePlacement(MovableEntity master) {

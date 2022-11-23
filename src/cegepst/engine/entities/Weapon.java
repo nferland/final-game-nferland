@@ -5,25 +5,24 @@ import cegepst.engine.EngineMath;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.WeaponAnimations;
 
+import java.util.ArrayList;
+
 public abstract class Weapon extends MovableEntity {
 
     protected final String SPRITE_PATH;
     private final long ATTACK_DURATION = 250;
 
+    protected WeaponAnimations animations;
     private boolean isAttacking = false;
     private long lastAttack = 0L;
     private Dimension hitboxDimension;
-    protected WeaponAnimations animations;
+    private int damage = 1;
 
     public Weapon(String path, Dimension hitboxDimension, Dimension spriteDimension) {
         SPRITE_PATH = path;
         this.dimension = new Dimension(spriteDimension.getWidth(), spriteDimension.getHeight());
         animations = new WeaponAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
         this.hitboxDimension =  new Dimension(hitboxDimension.getWidth(), hitboxDimension.getHeight());
-    }
-
-    public void updateIsAttacking() {
-        isAttacking = GameTime.getCurrentTime() - lastAttack < ATTACK_DURATION;
     }
 
     public void load(ImageLoader imageLoader){
@@ -54,6 +53,33 @@ public abstract class Weapon extends MovableEntity {
 
     public int getHitboxHeight() {
         return hitboxDimension.getHeight();
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    protected void updateIsAttacking() {
+        isAttacking = GameTime.getCurrentTime() - lastAttack < ATTACK_DURATION;
+    }
+
+    protected void updateHitEnemy(){
+        ArrayList<Enemy> killedEntities = new ArrayList<>();
+        for (Enemy enemy : EnemyRepository.getInstance()) {
+            if(hitBoxIntersectWith(enemy)) {
+                enemy.hurt(damage, getDirection());
+            }
+            if(enemy.isDead()) {
+                killedEntities.add(enemy);
+            }
+        }
+        for (Enemy entity: killedEntities) {
+            EnemyRepository.getInstance().unregisterEntity(entity);
+        }
     }
 
     protected void teleportUp(MovableEntity master) {

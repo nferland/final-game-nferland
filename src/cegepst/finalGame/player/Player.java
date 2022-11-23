@@ -3,6 +3,7 @@ package cegepst.finalGame.player;
 import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.Dimension;
+import cegepst.engine.entities.stateMachines.AttackState;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
@@ -29,7 +30,7 @@ public class Player extends ControllableEntity {
         setSpeed(3);
         setDashSpeed(15);
         walkingAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
-        sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32));
+        sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32), 6);
         dashGhosts = new ArrayList<>();
     }
 
@@ -49,9 +50,6 @@ public class Player extends ControllableEntity {
             drawDashGhosts(buffer);
             return;
         }
-        if(sword.isAttacking()) {
-            sword.draw(buffer);
-        }
         buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getCurrentAnimationFrame()),
                 x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
     }
@@ -65,7 +63,13 @@ public class Player extends ControllableEntity {
         updateSword();
     }
 
+    @Override
+    protected void die() {
+
+    }
+
     public void attack() {
+        attackState = AttackState.Melee;
         Sound.PLAYER_ATTACK.play();
         sword.attack();
     }
@@ -104,8 +108,11 @@ public class Player extends ControllableEntity {
     }
 
     private void drawWeapons(Buffer buffer) {
-        if(sword.isAttacking()) {
+        if(attackState == AttackState.Melee) {
             sword.draw(buffer);
+        }
+        if (attackState == AttackState.Range) {
+            // TODO : draw range weapon
         }
     }
 
