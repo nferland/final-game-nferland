@@ -11,6 +11,7 @@ public abstract class Weapon extends MovableEntity {
 
     protected final String SPRITE_PATH;
     private final long ATTACK_DURATION = 250;
+    private final long ATTACK_COOLDOWN = 100;
 
     protected WeaponAnimations animations;
     private boolean isAttacking = false;
@@ -33,6 +34,9 @@ public abstract class Weapon extends MovableEntity {
     public void attack() {
         isAttacking = true;
         lastAttack = GameTime.getCurrentTime();
+        if(GameTime.getCurrentTime() - lastAttack < ATTACK_DURATION + ATTACK_COOLDOWN) {
+            isAttacking = false;
+        }
     }
 
     public boolean isAttacking() {
