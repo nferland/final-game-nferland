@@ -87,7 +87,10 @@ public class DungeonCrawlerGame extends Game {
     private void initializeEnemies() {
         Zombie zombie = new Zombie(player, 300, 500);
         zombie.load(imageLoader);
+        Zombie zombie1 = new Zombie(player, 600, 50);
+        zombie1.load(imageLoader);
         EnemyRepository.getInstance().registerEntity(zombie);
+        EnemyRepository.getInstance().registerEntity(zombie1);
     }
 
     private void initializeWorld() {
