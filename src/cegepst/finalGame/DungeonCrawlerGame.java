@@ -67,6 +67,9 @@ public class DungeonCrawlerGame extends Game {
         if(gamePad.isDashPressed()) {
             player.dash();
         }
+        if (gamePad.isSpellPressed()) {
+
+        }
     }
 
     private void updateEnemies() {
