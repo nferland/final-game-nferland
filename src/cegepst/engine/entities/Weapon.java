@@ -11,7 +11,6 @@ public abstract class Weapon extends MovableEntity {
 
     protected final String SPRITE_PATH;
     private final long ATTACK_DURATION = 250;
-    private final long ATTACK_COOLDOWN = 100;
 
     protected WeaponAnimations animations;
     private boolean isAttacking = false;
@@ -21,9 +20,9 @@ public abstract class Weapon extends MovableEntity {
 
     public Weapon(String path, Dimension hitboxDimension, Dimension spriteDimension) {
         SPRITE_PATH = path;
-        this.dimension = new Dimension(spriteDimension.getWidth(), spriteDimension.getHeight());
+        this.dimension = spriteDimension;
         animations = new WeaponAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
-        this.hitboxDimension =  new Dimension(hitboxDimension.getWidth(), hitboxDimension.getHeight());
+        this.hitboxDimension =  hitboxDimension;
     }
 
     public void load(ImageLoader imageLoader){
