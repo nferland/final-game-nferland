@@ -61,6 +61,7 @@ public class Player extends ControllableEntity {
     @Override
     public void update() {
         super.update();
+        attackState = attackState.nextState(sword.isAttacking());
         moveWithController();
         Animator.animate(hasMoved(), walkingAnimations, 1);
         updateDashGhosts();
