@@ -10,7 +10,7 @@ public enum MovementState {
     Moving {
         @Override
         public MovementState nextState() {
-            return this;
+            return Idle;
         }
     },
     Dashing {
