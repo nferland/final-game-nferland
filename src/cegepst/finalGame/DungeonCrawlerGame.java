@@ -1,17 +1,16 @@
 package cegepst.finalGame;
 
 import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.physic.CollidableRepository;
+import cegepst.engine.entities.EnemyRepository;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.RenderingEngine;
 import cegepst.finalGame.audio.Music;
-import cegepst.finalGame.enemies.Enemy;
+import cegepst.engine.entities.Enemy;
 import cegepst.finalGame.enemies.Zombie;
 import cegepst.finalGame.player.Player;
-import cegepst.finalGame.world.Tree;
 import cegepst.finalGame.world.World;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 public class DungeonCrawlerGame extends Game {
 
     private ImageLoader imageLoader;
-    private ArrayList<Enemy> enemies;
     private GamePad gamePad;
     private Player player;
     private World world;
@@ -72,7 +70,7 @@ public class DungeonCrawlerGame extends Game {
     }
 
     private void updateEnemies() {
-        for (Enemy enemy : enemies) {
+        for (Enemy enemy : EnemyRepository.getInstance()) {
             enemy.update();
         }
     }
@@ -87,10 +85,9 @@ public class DungeonCrawlerGame extends Game {
     }
 
     private void initializeEnemies() {
-        enemies = new ArrayList<>();
         Zombie zombie = new Zombie(player, 300, 500);
         zombie.load(imageLoader);
-        enemies.add(zombie);
+        EnemyRepository.getInstance().registerEntity(zombie);
     }
 
     private void initializeWorld() {
@@ -100,7 +97,7 @@ public class DungeonCrawlerGame extends Game {
 
     private void drawEnemies(Buffer buffer) {
         for (Enemy enemy :
-                enemies) {
+                EnemyRepository.getInstance()) {
             enemy.draw(buffer);
         }
     }
