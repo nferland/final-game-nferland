@@ -33,6 +33,7 @@ public abstract class MovableEntity extends StaticEntity {
 
     public void update() {
         movementState = movementState.nextState();
+        hurtState = hurtState.nextState();
     }
 
     public void move() {
@@ -191,7 +192,7 @@ public abstract class MovableEntity extends StaticEntity {
     private void knockBack(Direction direction) {
         int previousSpeed = getSpeed();
         Direction previousDirection = getDirection();
-        setSpeed(8);
+        setSpeed(20);
         move(direction);
         setSpeed(previousSpeed);
         setDirection(previousDirection);
