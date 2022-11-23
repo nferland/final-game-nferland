@@ -7,6 +7,7 @@ import cegepst.engine.entities.stateMachines.AttackState;
 public abstract class ControllableEntity extends MovableEntity {
 
     private final MovementController controller;
+    protected AttackState attackState = AttackState.Idle;
 
     public ControllableEntity(MovementController controller) {
         this.controller = controller;
