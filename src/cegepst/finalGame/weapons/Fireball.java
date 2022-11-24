@@ -20,7 +20,7 @@ public class Fireball extends Spell {
         setLifespan(lifespan);
         load(imageLoader);
         setDirection(caster.getDirection());
-        setSpeed(2);
+        setSpeed(4);
         setState(SpellState.Traveling);
         teleport(caster.getX(), caster.getY());
         Sound.FIREBALL.play();
