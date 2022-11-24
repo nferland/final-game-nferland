@@ -6,6 +6,7 @@ import cegepst.engine.entities.Enemy;
 import cegepst.engine.entities.EnemyRepository;
 import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
+import cegepst.finalGame.audio.Sound;
 
 public class Zombie extends Enemy {
     private final String SPRITE_PATH = "images/zombie.png";
@@ -34,6 +35,7 @@ public class Zombie extends Enemy {
     protected void die() {
         hurtState = HurtState.Dead;
         EnemyRepository.getInstance().unregisterEntity(this);
+        Sound.ZOMBIE_DEATH.play();
     }
 
     @Override

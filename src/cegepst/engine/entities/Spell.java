@@ -87,7 +87,7 @@ public abstract class Spell extends MovableEntity {
             }
         }
         for (Enemy entity: killedEntities) {
-            EnemyRepository.getInstance().unregisterEntity(entity);
+            entity.die();
         }
     }
 

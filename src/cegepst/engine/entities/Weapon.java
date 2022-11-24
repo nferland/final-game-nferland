@@ -87,7 +87,7 @@ public abstract class Weapon extends StaticEntity {
             }
         }
         for (Enemy entity: killedEntities) {
-            EnemyRepository.getInstance().unregisterEntity(entity);
+            entity.die();
         }
     }
 

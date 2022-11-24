@@ -11,6 +11,8 @@ public enum Sound {
     FIREBALL_HIT("fireball-hit.wav"),
     PLAYER_ATTACK("hero-attack.wav"),
     DASH("dash.wav"),
+    PLAYER_HURT("player-hurt.wav"),
+    ZOMBIE_DEATH("murlock.wav");
 
     private final String audioResourceName;
 
