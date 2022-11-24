@@ -1,6 +1,5 @@
 package cegepst.engine.graphics;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class WeaponAnimations extends Animations{
