@@ -1,50 +1,39 @@
 package cegepst.finalGame.weapons;
 
-import cegepst.engine.entities.MovableEntity;
+import cegepst.engine.controls.Direction;
+import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.Weapon;
 import cegepst.engine.graphics.Animator;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.entities.Dimension;
+import java.awt.*;
 
 public class Sword extends Weapon {
+
+    private Direction direction;
 
     public Sword(String path, Dimension hitboxDimension, Dimension spriteDimension, int damage) {
         super(path, hitboxDimension,spriteDimension);
         setDamage(damage);
-
     }
 
-    @Override
-    public void update() {
-        super.update();
+    public void update(ControllableEntity master) {
+        direction = master.getDirection();
         updateIsAttacking();
         updateAnimation();
         if (isAttacking()) {
-            updateHitEnemy();
+            updateHitEnemy(master);
         }
-    }
-
-    @Override
-    protected void die() {
-
     }
 
     @Override
     public void draw(Buffer buffer) {
         if( isAttacking()) {
-            buffer.drawImage(Animator.draw(getDirection(), animations, animations.getCurrentAnimationFrame()),
+            buffer.drawImage(Animator.draw(direction, animations, animations.getCurrentAnimationFrame()),
                     x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
-        }
-    }
-
-    public void updatePlacement(MovableEntity master) {
-        switch (getDirection()) {
-            case UP -> teleportUp(master);
-            case DOWN -> teleportDown(master);
-            case LEFT -> teleportLeft(master);
-            case RIGHT -> teleportRight(master);
+            buffer.drawRectangle(x - Camera.getInstance().getX(), y - Camera.getInstance().getY(), getWidth(), getHeight(), new Color(255, 0, 0, 100));
         }
     }
 
