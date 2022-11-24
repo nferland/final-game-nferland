@@ -68,7 +68,7 @@ public class DungeonCrawlerGame extends Game {
             player.dash();
         }
         if (gamePad.isSpellPressed()) {
-
+            player.cast(imageLoader);
         }
     }
 
