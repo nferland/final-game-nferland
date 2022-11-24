@@ -6,6 +6,7 @@ import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.physic.CollidableRepository;
 import cegepst.engine.entities.stateMachines.SpellState;
 import cegepst.engine.graphics.WeaponAnimations;
+import cegepst.finalGame.audio.Sound;
 
 import java.util.ArrayList;
 
@@ -73,12 +74,13 @@ public abstract class Spell extends MovableEntity {
         this.state = state;
     }
 
-    protected void updateHitEnemy() {
+    protected void updateHitEnemy(Sound sound) {
         ArrayList<Enemy> killedEntities = new ArrayList<>();
         for (Enemy enemy : EnemyRepository.getInstance()) {
             if(hitBoxIntersectWith(enemy)) {
                 enemy.hurt(damage, getDirection());
                 setState(SpellState.Expired);
+                sound.play();
             }
             if(enemy.isDead()) {
                 killedEntities.add(enemy);

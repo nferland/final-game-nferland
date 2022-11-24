@@ -11,6 +11,7 @@ import cegepst.engine.graphics.Animator;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
+import cegepst.finalGame.audio.Sound;
 
 public class Fireball extends Spell {
 
@@ -22,13 +23,14 @@ public class Fireball extends Spell {
         setSpeed(2);
         setState(SpellState.Traveling);
         teleport(caster.getX(), caster.getY());
+        Sound.FIREBALL.play();
     }
 
     public void update() {
         super.update();
         updateAnimation();
         move(getDirection());
-        updateHitEnemy();
+        updateHitEnemy(Sound.FIREBALL_HIT);
         updateHitBlockade();
     }
 

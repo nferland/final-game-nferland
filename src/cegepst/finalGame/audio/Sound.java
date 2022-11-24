@@ -6,10 +6,11 @@ import javax.sound.sampled.Clip;
 
 public enum Sound {
 
-    FIRE("gun.wav"),
+    FIRE("fire.wav"),
+    FIREBALL("fireball.wav"),
+    FIREBALL_HIT("fireball-hit.wav"),
     PLAYER_ATTACK("hero-attack.wav"),
     DASH("dash.wav"),
-    PLAYER_HURT("player-hurt.wav");
 
     private final String audioResourceName;
 
