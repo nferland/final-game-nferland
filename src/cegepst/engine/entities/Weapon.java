@@ -7,7 +7,7 @@ import cegepst.engine.graphics.WeaponAnimations;
 
 import java.util.ArrayList;
 
-public abstract class Weapon extends MovableEntity {
+public abstract class Weapon extends StaticEntity {
 
     protected final String SPRITE_PATH;
     private final long ATTACK_DURATION = 250;
@@ -33,6 +33,15 @@ public abstract class Weapon extends MovableEntity {
     public void attack() {
         isAttacking = true;
         lastAttack = GameTime.getCurrentTime();
+    }
+
+    public void updatePlacement(MovableEntity master) {
+        switch (master.getDirection()) {
+            case UP -> teleportUp(master);
+            case DOWN -> teleportDown(master);
+            case LEFT -> teleportLeft(master);
+            case RIGHT -> teleportRight(master);
+        }
     }
 
     public boolean isAttacking() {
@@ -67,11 +76,11 @@ public abstract class Weapon extends MovableEntity {
         isAttacking = GameTime.getCurrentTime() - lastAttack < ATTACK_DURATION;
     }
 
-    protected void updateHitEnemy(){
+    protected void updateHitEnemy(ControllableEntity master){
         ArrayList<Enemy> killedEntities = new ArrayList<>();
         for (Enemy enemy : EnemyRepository.getInstance()) {
-            if(hitBoxIntersectWith(enemy)) {
-                enemy.hurt(damage, getDirection());
+            if(enemy.hitBoxIntersectWith(this)) {
+                enemy.hurt(damage, master.getDirection());
             }
             if(enemy.isDead()) {
                 killedEntities.add(enemy);

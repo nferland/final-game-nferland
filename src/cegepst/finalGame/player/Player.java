@@ -9,6 +9,8 @@ import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
 import cegepst.finalGame.audio.Sound;
+import cegepst.finalGame.weapons.Fireball;
+import cegepst.finalGame.weapons.Spell;
 import cegepst.finalGame.weapons.Sword;
 
 import java.awt.*;
@@ -22,8 +24,11 @@ public class Player extends ControllableEntity {
     private MovementAnimations walkingAnimations;
     private ArrayList<DashGhost> dashGhosts;
     private Sword sword;
+    private ArrayList<Fireball> fireballs;
     private long ghostApparitionRate = 20;
     private long lastGhostApparition = 0l;
+    private int maxManaPoint = 20;
+    private int manaPoint = maxManaPoint;
 
     public Player(MovementController controller) {
         super(controller);
@@ -32,6 +37,7 @@ public class Player extends ControllableEntity {
         setDashSpeed(15);
         walkingAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
         sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32), 6);
+        fireballs = new ArrayList<>();
         dashGhosts = new ArrayList<>();
     }
 
@@ -66,6 +72,7 @@ public class Player extends ControllableEntity {
         Animator.animate(hasMoved(), walkingAnimations, 1);
         updateDashGhosts();
         updateSword();
+        updateSpells();
     }
 
     @Override
@@ -79,10 +86,31 @@ public class Player extends ControllableEntity {
         sword.attack();
     }
 
+    public void cast() {
+
+
+    }
+
     @Override
     public void hurt(int damage, Direction kbDirection) {
         super.hurt(damage, kbDirection);
         Sound.PLAYER_HURT.play();
+    }
+
+    public int getMaxManaPoint() {
+        return maxManaPoint;
+    }
+
+    public void setMaxManaPoint(int maxManaPoint) {
+        this.maxManaPoint = maxManaPoint;
+    }
+
+    public int getManaPoint() {
+        return manaPoint;
+    }
+
+    public void setManaPoint(int manaPoint) {
+        this.manaPoint = manaPoint;
     }
 
     protected void loadSpriteSheet(ImageLoader imageLoader) {
@@ -107,9 +135,14 @@ public class Player extends ControllableEntity {
     }
 
     private void updateSword() {
-        sword.setDirection(getDirection());
-        sword.update();
+        sword.update(this);
         sword.updatePlacement(this);
+    }
+
+    public void updateSpells() {
+        for (Fireball fireball : fireballs) {
+
+        }
     }
 
     private void drawDashGhosts(Buffer buffer) {
