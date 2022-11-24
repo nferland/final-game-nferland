@@ -3,14 +3,15 @@ package cegepst.finalGame.player;
 import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.Dimension;
+import cegepst.engine.entities.Spell;
 import cegepst.engine.entities.stateMachines.AttackState;
 import cegepst.engine.entities.stateMachines.HurtState;
+import cegepst.engine.entities.stateMachines.SpellState;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
 import cegepst.finalGame.audio.Sound;
 import cegepst.finalGame.weapons.Fireball;
-import cegepst.finalGame.weapons.Spell;
 import cegepst.finalGame.weapons.Sword;
 
 import java.awt.*;
@@ -29,6 +30,7 @@ public class Player extends ControllableEntity {
     private long lastGhostApparition = 0l;
     private int maxManaPoint = 20;
     private int manaPoint = maxManaPoint;
+    private long fireballLifeSpan = 2000;
 
     public Player(MovementController controller) {
         super(controller);
@@ -51,6 +53,7 @@ public class Player extends ControllableEntity {
     @Override
     public void draw(Buffer buffer) {
         drawWeapons(buffer);
+        drawSpells(buffer);
         if (isDashing()) {
             buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getDashFrame()),
                     x - Camera.getInstance().getX() , y - Camera.getInstance().getY());
@@ -86,9 +89,8 @@ public class Player extends ControllableEntity {
         sword.attack();
     }
 
-    public void cast() {
-
-
+    public void cast(ImageLoader imageLoader) {
+        fireballs.add(new Fireball(fireballLifeSpan, imageLoader, this));
     }
 
     @Override
@@ -141,8 +143,12 @@ public class Player extends ControllableEntity {
 
     public void updateSpells() {
         for (Fireball fireball : fireballs) {
-
+            fireball.update();
         }
+        destroyDeadDashSpells();
+    }
+    private void destroyDeadDashSpells() {
+        fireballs.removeIf(fireball -> !fireball.stillActive());
     }
 
     private void drawDashGhosts(Buffer buffer) {
@@ -157,6 +163,12 @@ public class Player extends ControllableEntity {
         }
         if (attackState == AttackState.Range) {
             // TODO : draw range weapon
+        }
+    }
+
+    private void drawSpells(Buffer buffer) {
+        for (Fireball fireball : fireballs) {
+            fireball.draw(buffer);
         }
     }
 

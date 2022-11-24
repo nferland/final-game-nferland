@@ -1,0 +1,100 @@
+package cegepst.engine.entities;
+
+import cegepst.engine.GameTime;
+import cegepst.engine.entities.Dimension;
+import cegepst.engine.entities.MovableEntity;
+import cegepst.engine.entities.physic.CollidableRepository;
+import cegepst.engine.entities.stateMachines.SpellState;
+import cegepst.engine.graphics.WeaponAnimations;
+
+import java.util.ArrayList;
+
+public abstract class Spell extends MovableEntity {
+
+    protected WeaponAnimations animations;
+    private Dimension hitboxDimension;
+    private int damage = 1;
+    private int manaCost;
+    private long lifespan;
+    private long apparition = 0L;
+    private SpellState state;
+
+    public Spell(String path, Dimension hitboxDimension, Dimension spriteDimension, int manaCost, int damage) {
+        super();
+        this.manaCost = manaCost;
+        this.damage = damage;
+        animations = new WeaponAnimations(path, spriteDimension.getWidth(), spriteDimension.getHeight(), 0, 0);
+        this.hitboxDimension = hitboxDimension;
+        this.dimension = spriteDimension;
+        state = SpellState.Idle;
+        apparition = GameTime.getCurrentTime();
+    }
+
+
+    public boolean stillActive() {
+        System.out.println("stillActive : " + (GameTime.getCurrentTime() - apparition < lifespan));
+        return (GameTime.getCurrentTime() - apparition < lifespan) && state != SpellState.Expired;
+    }
+
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
+    }
+
+    public long getLifespan() {
+        return lifespan;
+    }
+
+    public void setLifespan(long lifespan) {
+        this.lifespan = lifespan;
+    }
+
+    public int getHitboxWidth() {
+        return hitboxDimension.getWidth();
+    }
+
+    public int getHitboxHeight() {
+        return hitboxDimension.getHeight();
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public SpellState getState() {
+        return state;
+    }
+
+    public void setState(SpellState state) {
+        this.state = state;
+    }
+
+    protected void updateHitEnemy() {
+        ArrayList<Enemy> killedEntities = new ArrayList<>();
+        for (Enemy enemy : EnemyRepository.getInstance()) {
+            if(hitBoxIntersectWith(enemy)) {
+                enemy.hurt(damage, getDirection());
+                setState(SpellState.Expired);
+            }
+            if(enemy.isDead()) {
+                killedEntities.add(enemy);
+            }
+        }
+        for (Enemy entity: killedEntities) {
+            EnemyRepository.getInstance().unregisterEntity(entity);
+        }
+    }
+
+    protected void updateHitBlockade() {
+        for (StaticEntity entity :
+                CollidableRepository.getInstance()) {
+            if (hitBoxIntersectWith(entity)) {
+                setState(SpellState.Expired);
+            }
+        }
+    }
+}
