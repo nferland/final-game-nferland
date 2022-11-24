@@ -33,7 +33,6 @@ public class Sword extends Weapon {
         if( isAttacking()) {
             buffer.drawImage(Animator.draw(direction, animations, animations.getCurrentAnimationFrame()),
                     x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
-            buffer.drawRectangle(x - Camera.getInstance().getX(), y - Camera.getInstance().getY(), getWidth(), getHeight(), new Color(255, 0, 0, 100));
         }
     }
 
