@@ -3,10 +3,8 @@ package cegepst.finalGame.player;
 import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.Spell;
 import cegepst.engine.entities.stateMachines.AttackState;
 import cegepst.engine.entities.stateMachines.HurtState;
-import cegepst.engine.entities.stateMachines.SpellState;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
@@ -28,8 +26,7 @@ public class Player extends ControllableEntity {
     private ArrayList<Fireball> fireballs;
     private long ghostApparitionRate = 20;
     private long lastGhostApparition = 0l;
-    private int maxManaPoint = 20;
-    private int manaPoint = maxManaPoint;
+    private Mana mana;
     private long fireballLifeSpan = 2000;
 
     public Player(MovementController controller) {
@@ -41,6 +38,9 @@ public class Player extends ControllableEntity {
         sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32), 6);
         fireballs = new ArrayList<>();
         dashGhosts = new ArrayList<>();
+        mana = new Mana( 20, 1);
+        setMaxHealthPoint(30);
+        setHealthPoint(getMaxHealthPoint());
     }
 
     @Override
@@ -76,6 +76,7 @@ public class Player extends ControllableEntity {
         updateDashGhosts();
         updateSword();
         updateSpells();
+        mana.update();
     }
 
     @Override
@@ -90,7 +91,11 @@ public class Player extends ControllableEntity {
     }
 
     public void cast(ImageLoader imageLoader) {
-        fireballs.add(new Fireball(fireballLifeSpan, imageLoader, this));
+        if(Fireball.MANA_COST <= mana.getManaPoint()) {
+            Fireball fireball = new Fireball(fireballLifeSpan, imageLoader, this);
+            fireballs.add(fireball);
+            mana.reduceMana(fireball.getManaCost());
+        }
     }
 
     @Override
@@ -99,20 +104,20 @@ public class Player extends ControllableEntity {
         Sound.PLAYER_HURT.play();
     }
 
-    public int getMaxManaPoint() {
-        return maxManaPoint;
+    public double getMaxManaPoint() {
+        return mana.getMaxManaPoint();
     }
 
     public void setMaxManaPoint(int maxManaPoint) {
-        this.maxManaPoint = maxManaPoint;
+        mana.setMaxManaPoint(maxManaPoint);
     }
 
-    public int getManaPoint() {
-        return manaPoint;
+    public double getManaPoint() {
+        return mana.getManaPoint();
     }
 
     public void setManaPoint(int manaPoint) {
-        this.manaPoint = manaPoint;
+        mana.setManaPoint(manaPoint);
     }
 
     protected void loadSpriteSheet(ImageLoader imageLoader) {
