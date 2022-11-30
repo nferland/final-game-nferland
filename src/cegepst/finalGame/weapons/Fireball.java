@@ -15,8 +15,10 @@ import cegepst.finalGame.audio.Sound;
 
 public class Fireball extends Spell {
 
+    public static final int MANA_COST = 6;
+
     public Fireball(long lifespan, ImageLoader imageLoader, MovableEntity caster) {
-        super("images/fire-Sheet.png", new Dimension(16), new Dimension(16), 6, 6);
+        super("images/fire-Sheet.png", new Dimension(16), new Dimension(16), MANA_COST, 6);
         setLifespan(lifespan);
         load(imageLoader);
         setDirection(caster.getDirection());
