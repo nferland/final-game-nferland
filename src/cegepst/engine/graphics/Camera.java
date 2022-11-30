@@ -30,8 +30,11 @@ public class Camera extends MovableEntity {
 
     }
 
-    public void update(MovableEntity followedEntity, Dimension worldDimension) {
-        mainEntity = followedEntity;
+    public void setMainEntity(MovableEntity entity) {
+        mainEntity = entity;
+    }
+
+    public void update(Dimension worldDimension) {
         int camX = (mainEntity.getX() - EngineMath.halfOf(mainEntity.getWidth())) - EngineMath.halfOf(getWidth());
         int camY = (mainEntity.getY() - EngineMath.halfOf(mainEntity.getHeight())) - EngineMath.halfOf(getHeight());
         if (camX < 0) {
