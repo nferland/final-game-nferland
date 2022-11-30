@@ -11,13 +11,24 @@ public class Hud {
     public void draw(Buffer buffer, Player player) {
         buffer.drawString("FPS: " + GameTime.getCurrentFps(), 10, 15, Color.WHITE);
         buffer.drawString("TOGGLE FULLSCREEN: <T>, FIRE SOUND: <SPACE>, TOGGLE MUSIC: <M>, QUIT: <Q>", 10, 584, Color.WHITE);
+        drawPlayerInfo(buffer, player);
+    }
+
+    private void drawPlayerInfo(Buffer buffer, Player player) {
         drawPlayerHealthBar(buffer, player);
+        drawPlayerManaBar(buffer, player);
+    }
+
+    private void drawPlayerManaBar(Buffer buffer, Player player) {
+        double manaBarWidth = player.getManaPoint() / player.getMaxManaPoint();
+        buffer.drawRectangle(15, 60, (int) player.getMaxManaPoint() * 8 + 10, 35, Color.BLACK);
+        buffer.drawRectangle(20, 65, (int) (player.getMaxManaPoint() * 8 * manaBarWidth), 25, Color.CYAN);
     }
 
     private void drawPlayerHealthBar(Buffer buffer,Player player) {
         double healthBarWidth = player.getHealthPoint() / (double) player.getMaxHealthPoint();
-        buffer.drawRectangle(15, 20, 210, 35, Color.BLACK);
-        buffer.drawRectangle(20, 25, (int) (200 * healthBarWidth), 25, getHealthBarColor(healthBarWidth));
+        buffer.drawRectangle(15, 20, player.getMaxHealthPoint() * 8 + 10, 35, Color.BLACK);
+        buffer.drawRectangle(20, 25, (int) (player.getMaxHealthPoint() * 8 * healthBarWidth), 25, getHealthBarColor(healthBarWidth));
     }
 
     private Color getHealthBarColor(double width) {
