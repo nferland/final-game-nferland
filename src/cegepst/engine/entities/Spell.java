@@ -33,7 +33,6 @@ public abstract class Spell extends MovableEntity {
 
 
     public boolean stillActive() {
-        System.out.println("stillActive : " + (GameTime.getCurrentTime() - apparition < lifespan));
         return (GameTime.getCurrentTime() - apparition < lifespan) && state != SpellState.Expired;
     }
 
