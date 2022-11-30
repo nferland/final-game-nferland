@@ -24,23 +24,7 @@ public class World {
         x = 0;
         y = 0;
         this.dimension = dimension;
-
-        Blockade topBorder = new Blockade(2400, 48);
-        topBorder.teleport(0, 0);
-
-        Blockade bottomBorder = new Blockade(2400, 32);
-        bottomBorder.teleport(0, 928);
-
-        Blockade leftBorder = new Blockade(32, 960);
-        leftBorder.teleport(0, 0);
-
-        Blockade rightBorder = new Blockade(32, 960);
-        rightBorder.teleport(2368, 0);
-
-        blockades.add(topBorder);
-        blockades.add(bottomBorder);
-        blockades.add(leftBorder);
-        blockades.add(rightBorder);
+        createBlockades();
     }
 
     public void load(ImageLoader imageLoader) {
@@ -53,5 +37,18 @@ public class World {
 
     public Dimension getDimension() {
         return dimension;
+    }
+
+    private void createBlockades() {
+        createBlockade(new Dimension(2400, 48), 0, 0);
+        createBlockade(new Dimension(2400, 32), 0, 928);
+        createBlockade(new Dimension(32, 960), 0, 0);
+        createBlockade(new Dimension(32, 960), 2368, 0);
+    }
+
+    private void createBlockade(Dimension dimension, int x, int y) {
+        Blockade border = new Blockade(dimension);
+        border.teleport(y, y);
+        blockades.add(border);
     }
 }

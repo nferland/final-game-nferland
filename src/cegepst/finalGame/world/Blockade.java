@@ -16,6 +16,10 @@ public class Blockade extends StaticEntity {
         CollidableRepository.getInstance().registerEntity(this);
     }
 
+    public Blockade(Dimension dimension) {
+        this(dimension.getWidth(), dimension.getHeight());
+    }
+
     @Override
     public void draw(Buffer buffer) {
 //        buffer.drawRectangle(x - Camera.getInstance().getxOffset(this), y - Camera.getInstance().getyOffset(this),
