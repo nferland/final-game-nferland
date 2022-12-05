@@ -33,6 +33,7 @@ public class Player extends ControllableEntity {
         super(controller);
         this.dimension = new Dimension(32);
         setSpeed(3);
+        setNormalSpeed(3);
         setDashSpeed(15);
         walkingAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
         sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32), 6);
