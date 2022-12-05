@@ -47,25 +47,17 @@ public abstract class Enemy extends MovableEntity {
 
     private void horizontalMovement() {
         if (player.getX() < getX()) {
-            if (getCollision().getAllowedSpeed(Direction.LEFT) > 0) {
-                moveLeft();
-            }
+            moveLeft();
             return;
         }
-        if (getCollision().getAllowedSpeed(Direction.RIGHT) > 0) {
-            moveRight();
-        }
+        moveRight();
     }
 
     private void verticalMovement() {
         if (player.getY() < getY()) {
-            if (getCollision().getAllowedSpeed(Direction.UP) > 0) {
-                moveUp();
-            }
+            moveUp();
             return;
         }
-        if (getCollision().getAllowedSpeed(Direction.DOWN) > 0) {
-            moveDown();
-        }
+        moveDown();
     }
 }
