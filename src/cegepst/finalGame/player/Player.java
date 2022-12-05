@@ -14,11 +14,13 @@ import cegepst.finalGame.weapons.Sword;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player extends ControllableEntity {
 
     private static final String SPRITE_PATH = "images/hero.png";
     private static final String DASH_PATH = "images/bluescale-dash.png";
+    private final Sound[] ATTACK_SOUNDS = {Sound.PLAYER_ATTACK1, Sound.PLAYER_ATTACK2, Sound.PLAYER_ATTACK3};
 
     private MovementAnimations walkingAnimations;
     private ArrayList<DashGhost> dashGhosts;
@@ -87,7 +89,7 @@ public class Player extends ControllableEntity {
 
     public void attack() {
         attackState = AttackState.Melee;
-        Sound.PLAYER_ATTACK.play();
+        ATTACK_SOUNDS[new Random().nextInt(0,2)].play();
         sword.attack();
     }
 

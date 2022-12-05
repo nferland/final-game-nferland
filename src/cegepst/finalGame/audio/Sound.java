@@ -9,7 +9,9 @@ public enum Sound {
     FIRE("fire.wav"),
     FIREBALL("fireball.wav"),
     FIREBALL_HIT("fireball-hit.wav"),
-    PLAYER_ATTACK("hero-attack.wav"),
+    PLAYER_ATTACK1("player-attack1.wav"),
+    PLAYER_ATTACK2("player-attack2.wav"),
+    PLAYER_ATTACK3("player-attack2.wav"),
     DASH("dash.wav"),
     PLAYER_HURT("player-hurt.wav"),
     ZOMBIE_DEATH("murlock.wav");
