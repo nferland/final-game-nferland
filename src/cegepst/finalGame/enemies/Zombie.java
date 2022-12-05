@@ -9,7 +9,6 @@ import cegepst.engine.graphics.*;
 import cegepst.finalGame.audio.Sound;
 
 public class Zombie extends Enemy {
-    private final String SPRITE_PATH = "images/zombie.png";
 
     private MovementAnimations movementAnimations;
 
@@ -21,7 +20,7 @@ public class Zombie extends Enemy {
         setMaxHealthPoint(6);
         setHealthPoint(6);
         this.dimension = new Dimension(32);
-        movementAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
+        movementAnimations = EnemyRepository.getInstance().getZombieAnimation();
     }
 
     public void update() {
@@ -46,18 +45,14 @@ public class Zombie extends Enemy {
 
     @Override
     public void load(ImageLoader imageLoader) {
-        loadSpriteSheet(imageLoader);
-        loadAnimationFrames();
     }
 
     @Override
     protected void loadSpriteSheet(ImageLoader imageLoader) {
-        movementAnimations.loadSpriteSheet(imageLoader);
     }
 
     @Override
     protected void loadAnimationFrames() {
-        movementAnimations.loadAnimations();
     }
 
 }

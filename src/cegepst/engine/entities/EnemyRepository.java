@@ -1,6 +1,8 @@
 package cegepst.engine.entities;
 
 import cegepst.engine.entities.physic.CollidableRepository;
+import cegepst.engine.graphics.ImageLoader;
+import cegepst.engine.graphics.MovementAnimations;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +13,8 @@ public class EnemyRepository implements Iterable<Enemy> {
 
     private static EnemyRepository instance;
     private final List<Enemy> registeredEnemies;
+    private final String ZOMBIE_SPRITE_PATH = "images/zombie.png";
+    private final MovementAnimations zombieAnimation;
 
     public static EnemyRepository getInstance() {
         if (instance == null) {
@@ -31,6 +35,15 @@ public class EnemyRepository implements Iterable<Enemy> {
         registeredEnemies.remove(entity);
     }
 
+    public void loadZombieAnimation() {
+        zombieAnimation.loadSpriteSheet(new ImageLoader());
+        zombieAnimation.loadAnimations();
+    }
+
+    public MovementAnimations getZombieAnimation() {
+        return zombieAnimation;
+    }
+
     public void unregisterEntities(Collection<Enemy> entities) {
         registeredEnemies.removeAll(entities);
     }
@@ -46,5 +59,6 @@ public class EnemyRepository implements Iterable<Enemy> {
 
     private EnemyRepository() {
         registeredEnemies = new ArrayList<>();
+        zombieAnimation = new MovementAnimations(ZOMBIE_SPRITE_PATH, 32, 32, 0, 0);
     }
 }
