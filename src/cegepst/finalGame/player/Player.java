@@ -30,6 +30,7 @@ public class Player extends ControllableEntity {
     private long lastGhostApparition = 0l;
     private Mana mana;
     private long fireballLifeSpan = 2000;
+    private int attackSoundIndex = 0;
 
     public Player(MovementController controller) {
         super(controller);
@@ -89,7 +90,8 @@ public class Player extends ControllableEntity {
 
     public void attack() {
         attackState = AttackState.Melee;
-        ATTACK_SOUNDS[new Random().nextInt(0,2)].play();
+        ATTACK_SOUNDS[attackSoundIndex].play();
+        updateIndex();
         sword.attack();
     }
 
@@ -155,6 +157,14 @@ public class Player extends ControllableEntity {
         }
         destroyDeadDashSpells();
     }
+
+    private void updateIndex() {
+        attackSoundIndex++;
+        if (attackSoundIndex > ATTACK_SOUNDS.length - 1) {
+            attackSoundIndex = 0;
+        }
+    }
+
     private void destroyDeadDashSpells() {
         fireballs.removeIf(fireball -> !fireball.stillActive());
     }
