@@ -11,6 +11,7 @@ import cegepst.finalGame.audio.Music;
 import cegepst.engine.entities.Enemy;
 import cegepst.finalGame.enemies.Zombie;
 import cegepst.finalGame.player.Player;
+import cegepst.finalGame.world.SpawnPoint;
 import cegepst.finalGame.world.World;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class DungeonCrawlerGame extends Game {
     @Override
     protected void initialize() {
         imageLoader = new ImageLoader();
+        EnemyRepository.getInstance().loadZombieAnimation();
         initializePlayer();
         initializeEnemies();
         initializeWorld();
@@ -33,13 +35,15 @@ public class DungeonCrawlerGame extends Game {
 
         //RenderingEngine.getInstance().getScreen().fullScreen();
         RenderingEngine.getInstance().getScreen().hideCursor();
+        Camera.getInstance().setMainEntity(player);
     }
 
     @Override
     protected void update() {
         updateInputs();
         player.update();
-        Camera.getInstance().update(player, world.getDimension());
+        Camera.getInstance().update(world.getDimension());
+        updateSpwanPoints();
         updateEnemies();
     }
 
@@ -78,6 +82,12 @@ public class DungeonCrawlerGame extends Game {
         }
     }
 
+    private void updateSpwanPoints() {
+        for (SpawnPoint spawnPoint : world.getSpawnPoints()) {
+            spawnPoint.update(player, imageLoader);
+        }
+    }
+
     private void initializePlayer() {
         gamePad = new GamePad();
         gamePad.useWASDMovement();
@@ -89,10 +99,8 @@ public class DungeonCrawlerGame extends Game {
 
     private void initializeEnemies() {
         Zombie zombie = new Zombie(player, 300, 500);
-        zombie.load(imageLoader);
-        Zombie zombie1 = new Zombie(player, 600, 50);
-        zombie1.load(imageLoader);
         EnemyRepository.getInstance().registerEntity(zombie);
+        Zombie zombie1 = new Zombie(player, 600, 50);
         EnemyRepository.getInstance().registerEntity(zombie1);
     }
 
