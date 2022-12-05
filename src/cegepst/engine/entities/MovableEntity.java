@@ -14,6 +14,8 @@ public abstract class MovableEntity extends StaticEntity {
 
     private int speed = 1;
     private int dashSpeed = 5;
+    private int normalSpeed = speed;
+    private int knockBackSpeed = 20;
     private long dashDuration = 150;
     private long dashLastUsage = 0L;
     private int maxHealthPoint = 10;
@@ -163,6 +165,10 @@ public abstract class MovableEntity extends StaticEntity {
         dashSpeed = strength;
     }
 
+    public void setNormalSpeed(int speed) {
+        normalSpeed = speed;
+    }
+
     public void setDashDuration(long dashDuration) {
         this.dashDuration = dashDuration;
     }
@@ -190,11 +196,10 @@ public abstract class MovableEntity extends StaticEntity {
     protected abstract void die();
 
     private void knockBack(Direction direction) {
-        int previousSpeed = getSpeed();
         Direction previousDirection = getDirection();
-        setSpeed(20);
+        setSpeed(knockBackSpeed);
         move(direction);
-        setSpeed(previousSpeed);
+        setSpeed(normalSpeed);
         setDirection(previousDirection);
     }
 }
