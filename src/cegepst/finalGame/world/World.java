@@ -48,7 +48,7 @@ public class World {
 
     private void createBlockade(Dimension dimension, int x, int y) {
         Blockade border = new Blockade(dimension);
-        border.teleport(y, y);
+        border.teleport(x, y);
         blockades.add(border);
     }
 }
