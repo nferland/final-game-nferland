@@ -1,5 +1,6 @@
 package cegepst.finalGame.world;
 
+import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.graphics.Buffer;
@@ -15,16 +16,19 @@ public class World {
     private static final String MAP_PATH = "maps/outdoor.png";
     private Image background;
     private ArrayList<Blockade> blockades;
+    private ArrayList<SpawnPoint> spawnPoints;
     private Dimension dimension;
     private int x;
     private int y;
 
     public World(Dimension dimension) {
         blockades = new ArrayList<>();
+        spawnPoints = new ArrayList<>();
         x = 0;
         y = 0;
         this.dimension = dimension;
         createBlockades();
+        createSpawnPoints();
     }
 
     public void load(ImageLoader imageLoader) {
@@ -39,6 +43,10 @@ public class World {
         return dimension;
     }
 
+    public ArrayList<SpawnPoint> getSpawnPoints() {
+        return spawnPoints;
+    }
+
     private void createBlockades() {
         createBlockade(new Dimension(2400, 48), 0, 0);
         createBlockade(new Dimension(2400, 32), 0, 928);
@@ -50,5 +58,14 @@ public class World {
         Blockade border = new Blockade(dimension);
         border.teleport(x, y);
         blockades.add(border);
+    }
+
+    private void createSpawnPoints() {
+        createSpawnPoint(500, 500);
+        createSpawnPoint(40, 450);
+    }
+
+    private void createSpawnPoint(int x, int y) {
+        spawnPoints.add(new SpawnPoint(x, y, 3000));
     }
 }
