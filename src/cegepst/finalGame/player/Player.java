@@ -85,7 +85,7 @@ public class Player extends ControllableEntity {
 
     @Override
     protected void die() {
-
+        Sound.PLAYER_DEATH.play();
     }
 
     public void attack() {
@@ -107,6 +107,10 @@ public class Player extends ControllableEntity {
     public void hurt(int damage, Direction kbDirection) {
         super.hurt(damage, kbDirection);
         Sound.PLAYER_HURT.play();
+    }
+
+    public HurtState getHurtState() {
+        return hurtState;
     }
 
     public double getMaxManaPoint() {

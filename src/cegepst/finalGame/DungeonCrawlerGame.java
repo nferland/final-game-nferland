@@ -2,6 +2,7 @@ package cegepst.finalGame;
 
 import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.EnemyRepository;
+import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.graphics.Camera;
@@ -45,6 +46,7 @@ public class DungeonCrawlerGame extends Game {
         Camera.getInstance().update(world.getDimension());
         updateSpwanPoints();
         updateEnemies();
+        updateGameContinuation();
     }
 
     @Override
@@ -52,6 +54,13 @@ public class DungeonCrawlerGame extends Game {
         Camera.getInstance().draw(buffer, world.getBackground());
         drawEnemies(buffer);
         hud.draw(buffer, player);
+    }
+
+    private void updateGameContinuation() {
+        if (player.getHurtState() == HurtState.Dead) {
+            Music.WIND_BACKGROUND.stop();
+            stop();
+        }
     }
 
     private void updateInputs() {

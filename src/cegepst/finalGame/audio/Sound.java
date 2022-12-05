@@ -12,6 +12,7 @@ public enum Sound {
     PLAYER_ATTACK1("player-attack1.wav"),
     PLAYER_ATTACK2("player-attack2.wav"),
     PLAYER_ATTACK3("player-attack2.wav"),
+    PLAYER_DEATH("player-death.wav"),
     DASH("dash.wav"),
     PLAYER_HURT("player-hurt.wav"),
     ZOMBIE_DEATH("murlock.wav");
