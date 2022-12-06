@@ -164,7 +164,7 @@ public class Player extends ControllableEntity {
         for (Fireball fireball : fireballs) {
             fireball.update();
         }
-        destroyDeadDashSpells();
+        destroyDeadSpells();
     }
 
     private void updateIndex() {
@@ -174,7 +174,7 @@ public class Player extends ControllableEntity {
         }
     }
 
-    private void destroyDeadDashSpells() {
+    private void destroyDeadSpells() {
         fireballs.removeIf(fireball -> !fireball.stillActive());
     }
 
