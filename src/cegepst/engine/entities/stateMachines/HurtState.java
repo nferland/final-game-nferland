@@ -38,7 +38,7 @@ public enum HurtState {
         }
     };
 
-    private long invulnerabilityLenght = 90;
+    private final long invulnerabilityLenght = 750;
     private long invulnerabilityStart = 0L;
 
     public abstract HurtState nextState();
