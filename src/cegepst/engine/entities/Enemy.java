@@ -13,9 +13,11 @@ public abstract class Enemy extends MovableEntity {
 
     private final ControllableEntity player;
     private int damage;
+    private int scoreValue;
 
-    public Enemy(ControllableEntity player) {
+    public Enemy(ControllableEntity player, int scoreValue) {
         this.player = player;
+        this.scoreValue = scoreValue;
         EnemyRepository.getInstance().registerEntity(this);
     }
 
@@ -25,6 +27,10 @@ public abstract class Enemy extends MovableEntity {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getScoreValue() {
+        return scoreValue;
     }
 
     protected void moveTowardPlayer() {

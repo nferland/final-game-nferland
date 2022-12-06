@@ -6,6 +6,7 @@ import cegepst.engine.entities.Enemy;
 import cegepst.engine.entities.EnemyRepository;
 import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
+import cegepst.finalGame.Score;
 import cegepst.finalGame.audio.Sound;
 
 public class Zombie extends Enemy {
@@ -13,7 +14,7 @@ public class Zombie extends Enemy {
     private MovementAnimations movementAnimations;
 
     public Zombie(ControllableEntity player, int x, int y) {
-        super(player);
+        super(player, 10);
         setSpeed(1);
         teleport(x, y);
         setDamage(2);
@@ -35,6 +36,7 @@ public class Zombie extends Enemy {
         hurtState = HurtState.Dead;
         EnemyRepository.getInstance().unregisterEntity(this);
         Sound.ZOMBIE_DEATH.play();
+        Score.getInstance().increment(getScoreValue());
     }
 
     @Override

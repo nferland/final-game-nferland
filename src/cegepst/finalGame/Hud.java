@@ -12,6 +12,7 @@ public class Hud {
         buffer.drawString("FPS: " + GameTime.getCurrentFps(), 10, 15, Color.WHITE);
         buffer.drawString("TOGGLE FULLSCREEN: <T>, FIRE SOUND: <SPACE>, TOGGLE MUSIC: <M>, QUIT: <Q>", 10, 584, Color.WHITE);
         drawPlayerInfo(buffer, player);
+        buffer.drawString("Score : " + Score.getInstance().getScore(),350, 20 , Color.WHITE);
     }
 
     private void drawPlayerInfo(Buffer buffer, Player player) {
