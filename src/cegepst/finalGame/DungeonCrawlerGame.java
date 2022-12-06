@@ -97,7 +97,7 @@ public class DungeonCrawlerGame extends Game {
 
     private void updateSpwanPoints() {
         for (SpawnPoint spawnPoint : world.getSpawnPoints()) {
-            spawnPoint.update(player, imageLoader);
+            spawnPoint.update(player);
         }
     }
 
