@@ -42,7 +42,7 @@ public class Player extends ControllableEntity {
         sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32), 6);
         fireballs = new ArrayList<>();
         dashGhosts = new ArrayList<>();
-        mana = new Mana( 20, 1);
+        mana = new Mana( 20, 3);
         setMaxHealthPoint(30);
         setHealthPoint(getMaxHealthPoint());
     }
