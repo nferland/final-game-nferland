@@ -106,7 +106,12 @@ public class Player extends ControllableEntity {
     @Override
     public void hurt(int damage, Direction kbDirection) {
         super.hurt(damage, kbDirection);
-        Sound.PLAYER_HURT.play();
+        if (hurtState != HurtState.Invulnerable) {
+            Sound.PLAYER_HURT.play();
+        }
+        if(hurtState == HurtState.Dead) {
+            die();
+        }
     }
 
     public HurtState getHurtState() {
