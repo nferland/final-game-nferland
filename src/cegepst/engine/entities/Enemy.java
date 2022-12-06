@@ -4,6 +4,10 @@ import cegepst.engine.EngineMath;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.MovableEntity;
+import cegepst.engine.graphics.Buffer;
+import cegepst.engine.graphics.Camera;
+
+import java.awt.*;
 
 public abstract class Enemy extends MovableEntity {
 
@@ -37,6 +41,11 @@ public abstract class Enemy extends MovableEntity {
 
     protected boolean intersectWithPlayer() {
         return hitBoxIntersectWith(player);
+    }
+
+    protected void drawHealthBar(Buffer buffer) {
+        double barwidth = getHealthPoint() /( getMaxHealthPoint() * 1.0);
+        buffer.drawRectangle(x - Camera.getInstance().getX(), y - Camera.getInstance().getY() - 5, (int) (barwidth * getWidth()), 3, Color.RED);
     }
 
     protected void hurtPlayer() {

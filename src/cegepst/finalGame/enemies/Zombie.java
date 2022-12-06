@@ -41,6 +41,7 @@ public class Zombie extends Enemy {
     public void draw(Buffer buffer) {
         buffer.drawImage(Animator.draw(getDirection(), movementAnimations, movementAnimations.getCurrentAnimationFrame()),
                 x - Camera.getInstance().getX(), y - Camera.getInstance().getY());
+        drawHealthBar(buffer);
     }
 
     @Override
