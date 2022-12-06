@@ -29,6 +29,7 @@ public class DungeonCrawlerGame extends Game {
     protected void initialize() {
         imageLoader = new ImageLoader();
         EnemyRepository.getInstance().loadZombieAnimation();
+        SpellRepository.getInstance().loadAnimations(imageLoader);
         initializePlayer();
         initializeEnemies();
         initializeWorld();

@@ -20,15 +20,15 @@ public abstract class Spell extends MovableEntity {
     private long apparition = 0L;
     private SpellState state;
 
-    public Spell(String path, Dimension hitboxDimension, Dimension spriteDimension, int manaCost, int damage) {
+    public Spell(MovableEntity caster,Dimension hitboxDimension, Dimension spriteDimension, int manaCost, int damage) {
         super();
         this.manaCost = manaCost;
         this.damage = damage;
-        animations = new WeaponAnimations(path, spriteDimension.getWidth(), spriteDimension.getHeight(), 0, 0);
         this.hitboxDimension = hitboxDimension;
         this.dimension = spriteDimension;
         state = SpellState.Idle;
         apparition = GameTime.getCurrentTime();
+        SpellRepository.getInstance().registerEntity(this);
     }
 
 
@@ -73,13 +73,13 @@ public abstract class Spell extends MovableEntity {
         this.state = state;
     }
 
-    protected void updateHitEnemy(Sound sound) {
+    protected void updateHitEnemy() {
         ArrayList<Enemy> killedEntities = new ArrayList<>();
         for (Enemy enemy : EnemyRepository.getInstance()) {
             if(hitBoxIntersectWith(enemy)) {
                 enemy.hurt(damage, getDirection());
                 setState(SpellState.Expired);
-                sound.play();
+                Sound.FIREBALL_HIT.play();
             }
             if(enemy.isDead()) {
                 killedEntities.add(enemy);

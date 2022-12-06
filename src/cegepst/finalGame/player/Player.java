@@ -97,7 +97,7 @@ public class Player extends ControllableEntity {
 
     public void cast(ImageLoader imageLoader) {
         if(Fireball.MANA_COST <= mana.getManaPoint()) {
-            Fireball fireball = new Fireball(fireballLifeSpan, imageLoader, this);
+            Fireball fireball = new Fireball(fireballLifeSpan, this);
             fireballs.add(fireball);
             mana.reduceMana(fireball.getManaCost());
         }
