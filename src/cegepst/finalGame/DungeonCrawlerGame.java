@@ -61,6 +61,10 @@ public class DungeonCrawlerGame extends Game {
             Music.WIND_BACKGROUND.stop();
             stop();
         }
+        if (Score.getInstance().getScore() >= 1000) {
+            victory();
+            stop();
+        }
     }
 
     private void updateInputs() {
