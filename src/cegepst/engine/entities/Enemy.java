@@ -50,8 +50,8 @@ public abstract class Enemy extends MovableEntity {
     }
 
     protected void drawHealthBar(Buffer buffer) {
-        double barwidth = getHealthPoint() /( getMaxHealthPoint() * 1.0);
-        buffer.drawRectangle(x - Camera.getInstance().getX(), y - Camera.getInstance().getY() - 5, (int) (barwidth * getWidth()), 3, Color.RED);
+        double barWidth = getHealthPoint() /( getMaxHealthPoint() * 1.0);
+        buffer.drawRectangle(x - Camera.getInstance().getX(), y - Camera.getInstance().getY() - 5, (int) (barWidth * getWidth()), 3, Color.RED);
     }
 
     protected void hurtPlayer() {
