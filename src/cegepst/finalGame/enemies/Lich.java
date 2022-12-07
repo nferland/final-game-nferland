@@ -1,11 +1,9 @@
 package cegepst.finalGame.enemies;
 
 import cegepst.engine.EngineMath;
+import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
-import cegepst.engine.entities.ControllableEntity;
-import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.Enemy;
-import cegepst.engine.entities.EnemyRepository;
+import cegepst.engine.entities.*;
 import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
 import cegepst.finalGame.Score;
@@ -17,8 +15,9 @@ import java.util.ArrayList;
 public class Lich extends Enemy {
 
     private MovementAnimations movementAnimations;
-    private ArrayList<Fireball> fireballs;
     private long fireballLifeSpan = 2000;
+    private long fireballCooldown =  2500;
+    private long lastFireball = 0L;
 
 
     public Lich(ControllableEntity player, int y, int x) {
@@ -37,7 +36,6 @@ public class Lich extends Enemy {
         moveTowardPlayer(750);
         hurtPlayer();
         Animator.animate(hasMoved(), movementAnimations, 1);
-        fireballs = new ArrayList<>();
     }
 
 @Override
@@ -65,11 +63,7 @@ public class Lich extends Enemy {
 
     @Override
     protected void hurtPlayer() {
-        if (player.getX() == getX()) {
-            if (player.getY() < getY()) {
-                fireballs.add(new Fireball(fireballLifeSpan, this));
-            }
-        }
+        cast();
     }
 
     @Override
@@ -88,6 +82,13 @@ public class Lich extends Enemy {
         EnemyRepository.getInstance().unregisterEntity(this);
         Sound.LICH_DEATH.play();
         Score.getInstance().increment(getScoreValue());
+    }
+
+    private void cast() {
+        if(GameTime.getCurrentTime() - lastFireball > fireballCooldown) {
+            new Fireball(fireballLifeSpan, this);
+            lastFireball = GameTime.getCurrentTime();
+        }
     }
 
 }
