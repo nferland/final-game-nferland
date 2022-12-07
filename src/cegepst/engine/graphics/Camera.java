@@ -1,9 +1,8 @@
 package cegepst.engine.graphics;
 
 import cegepst.engine.EngineMath;
-import cegepst.engine.entities.MovableEntity;
+import cegepst.engine.entities.*;
 import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.physic.CollidableRepository;
 import java.awt.*;
 
@@ -57,6 +56,9 @@ public class Camera extends MovableEntity {
         buffer.drawImage(world, -getX(), -getY());
         for (StaticEntity entity: CollidableRepository.getInstance()) {
             entity.draw(buffer);
+        }
+        for (Spell spell: SpellRepository.getInstance()) {
+            spell.draw(buffer);
         }
         mainEntity.draw(buffer);
     }

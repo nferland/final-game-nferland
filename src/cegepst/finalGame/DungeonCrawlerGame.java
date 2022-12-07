@@ -1,8 +1,6 @@
 package cegepst.finalGame;
 
-import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.EnemyRepository;
-import cegepst.engine.entities.SpellRepository;
+import cegepst.engine.entities.*;
 import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.Game;
@@ -10,7 +8,6 @@ import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
 import cegepst.engine.graphics.RenderingEngine;
 import cegepst.finalGame.audio.Music;
-import cegepst.engine.entities.Enemy;
 import cegepst.finalGame.enemies.Zombie;
 import cegepst.finalGame.player.Player;
 import cegepst.finalGame.world.SpawnPoint;
@@ -46,6 +43,7 @@ public class DungeonCrawlerGame extends Game {
         updateInputs();
         player.update();
         Camera.getInstance().update(world.getDimension());
+        updateSpells();
         updateSpwanPoints();
         updateEnemies();
         updateGameContinuation();
@@ -87,8 +85,15 @@ public class DungeonCrawlerGame extends Game {
             player.dash();
         }
         if (gamePad.isSpellPressed()) {
-            player.cast(imageLoader);
+            player.cast();
         }
+    }
+
+    private void updateSpells() {
+        for (Spell spell : SpellRepository.getInstance()) {
+            spell.update(player);
+        }
+        SpellRepository.getInstance().uregisterInactiveSpells();
     }
 
     private void updateEnemies() {
@@ -113,10 +118,8 @@ public class DungeonCrawlerGame extends Game {
     }
 
     private void initializeEnemies() {
-        Zombie zombie = new Zombie(player, 300, 500);
-        EnemyRepository.getInstance().registerEntity(zombie);
-        Zombie zombie1 = new Zombie(player, 600, 50);
-        EnemyRepository.getInstance().registerEntity(zombie1);
+        new Zombie(player, 300, 500);
+        new Zombie(player, 600, 50);
     }
 
     private void initializeWorld() {

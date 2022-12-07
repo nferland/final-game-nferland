@@ -26,7 +26,7 @@ public class Zombie extends Enemy {
 
     public void update() {
         super.update();
-        moveTowardPlayer();
+        moveTowardPlayer(500);
         hurtPlayer();
         Animator.animate(hasMoved(), movementAnimations, 1);
     }

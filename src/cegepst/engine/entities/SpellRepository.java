@@ -42,6 +42,10 @@ public class SpellRepository implements Iterable<Spell>{
         registeredSpells.remove(entity);
     }
 
+    public void uregisterInactiveSpells() {
+        registeredSpells.removeIf(spell -> !spell.stillActive());
+    }
+
     @Override
     public Iterator<Spell> iterator() {
         return registeredSpells.iterator();

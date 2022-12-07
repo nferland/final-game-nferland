@@ -15,7 +15,9 @@ public enum Sound {
     PLAYER_DEATH("player-death.wav"),
     DASH("dash.wav"),
     PLAYER_HURT("player-hurt.wav"),
-    ZOMBIE_DEATH("murlock.wav");
+    ZOMBIE_DEATH("murlock.wav"),
+    LICH_HURT("lich-hurt.wav"),
+    LICH_DEATH("lich-death.wav");
 
     private final String audioResourceName;
 

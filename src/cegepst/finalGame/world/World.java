@@ -62,7 +62,7 @@ public class World {
 
     private void createSpawnPoints() {
         createSpawnPoint(500, 500);
-        createSpawnPoint(40, 450);
+        createSpawnPoint(50, 450);
     }
 
     private void createSpawnPoint(int x, int y) {

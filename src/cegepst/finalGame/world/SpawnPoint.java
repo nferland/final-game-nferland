@@ -3,6 +3,8 @@ package cegepst.finalGame.world;
 import cegepst.engine.GameTime;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.EnemyRepository;
+import cegepst.finalGame.Score;
+import cegepst.finalGame.enemies.Lich;
 import cegepst.finalGame.enemies.Zombie;
 
 import java.util.Random;
@@ -13,6 +15,7 @@ public class SpawnPoint {
     private final int y;
     private final long spawnDelay;
     private long lastSpawn = 0L;
+    private boolean spawnBoss = true;
     private Random rnd;
 
     public SpawnPoint(int x, int y, long spawnDelay) {
@@ -22,20 +25,35 @@ public class SpawnPoint {
         rnd = new Random();
     }
 
-    public void update(ControllableEntity player, ImageLoader imageLoader) {
-        if(
     public void update(ControllableEntity player) {
-        if (GameTime.getCurrentTime() - lastSpawn > spawnDelay && EnemyRepository.getInstance().count() <= 10) {
+        spawnZombie(player);
+        spawnLich(player);
+    }
+
+    private void spawnZombie(ControllableEntity player) {
+        if (
+                GameTime.getCurrentTime() - lastSpawn > spawnDelay &&
+                EnemyRepository.getInstance().count() <= 10) {
             createZombie(player);
             lastSpawn = GameTime.getCurrentTime();
         }
     }
 
-    private void createZombie(ControllableEntity player, ImageLoader imageLoader) {
-        Zombie zombie = new Zombie(player, rnd.nextInt(x-2, x+3), rnd.nextInt(y-2, y+3));
-//    private void createLich(ControllableEntity player) {
-//        Lich lich = new Lich(player, );
-        EnemyRepository.getInstance().registerEntity(zombie);
+    private void spawnLich(ControllableEntity player) {
+        if (Score.getInstance().getScore() % 200 == 0 && Score.getInstance().getScore() != 0 && spawnBoss) {
+            createLich(player);
+            spawnBoss = false;
+        }
+        if(Score.getInstance().getScore() % 200 != 0 && !spawnBoss) {
+            spawnBoss = true;
+        }
+    }
 
+    private void createLich(ControllableEntity player) {
+        new Lich(player, x, y);
+    }
+
+    private void createZombie(ControllableEntity player) {
+        new Zombie(player, rnd.nextInt(x-20, x+20), rnd.nextInt(y-20, y+20));
     }
 }

@@ -1,8 +1,6 @@
 package cegepst.engine.entities;
 
 import cegepst.engine.GameTime;
-import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.MovableEntity;
 import cegepst.engine.entities.physic.CollidableRepository;
 import cegepst.engine.entities.stateMachines.SpellState;
 import cegepst.engine.graphics.WeaponAnimations;
@@ -19,6 +17,7 @@ public abstract class Spell extends MovableEntity {
     private long lifespan;
     private long apparition = 0L;
     private SpellState state;
+    private MovableEntity caster;
 
     public Spell(MovableEntity caster,Dimension hitboxDimension, Dimension spriteDimension, int manaCost, int damage) {
         super();
@@ -26,11 +25,11 @@ public abstract class Spell extends MovableEntity {
         this.damage = damage;
         this.hitboxDimension = hitboxDimension;
         this.dimension = spriteDimension;
+        this.caster = caster;
         state = SpellState.Idle;
         apparition = GameTime.getCurrentTime();
         SpellRepository.getInstance().registerEntity(this);
     }
-
 
     public boolean stillActive() {
         return (GameTime.getCurrentTime() - apparition < lifespan) && state != SpellState.Expired;
@@ -90,6 +89,14 @@ public abstract class Spell extends MovableEntity {
         }
     }
 
+    protected void updateHitPlayer(MovableEntity player) {
+        if(player != caster) {
+            if(hitBoxIntersectWith(player)) {
+                player.hurt(damage, getDirection());
+            }
+        }
+    }
+
     protected void updateHitBlockade() {
         for (StaticEntity entity :
                 CollidableRepository.getInstance()) {
@@ -98,4 +105,6 @@ public abstract class Spell extends MovableEntity {
             }
         }
     }
+
+    public abstract void update(MovableEntity player);
 }

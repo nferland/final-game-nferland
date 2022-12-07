@@ -1,11 +1,6 @@
 package cegepst.finalGame.weapons;
 
-import cegepst.engine.GameTime;
-import cegepst.engine.controls.Direction;
-import cegepst.engine.entities.ControllableEntity;
-import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.MovableEntity;
-import cegepst.engine.entities.Spell;
+import cegepst.engine.entities.*;
 import cegepst.engine.entities.stateMachines.SpellState;
 import cegepst.engine.graphics.Animator;
 import cegepst.engine.graphics.Buffer;
@@ -21,7 +16,6 @@ public class Fireball extends Spell {
         super(caster, new Dimension(16), new Dimension(16), MANA_COST, 6);
         animations = SpellRepository.getInstance().getFireballAnimations();
         setLifespan(lifespan);
-        load(imageLoader);
         setDirection(caster.getDirection());
         setSpeed(4);
         setState(SpellState.Traveling);
@@ -29,11 +23,13 @@ public class Fireball extends Spell {
         Sound.FIREBALL.play();
     }
 
-    public void update() {
+    @Override
+    public void update(MovableEntity player) {
         super.update();
         updateAnimation();
         move(getDirection());
         updateHitEnemy();
+        updateHitPlayer(player);
         updateHitBlockade();
     }
 
@@ -61,7 +57,7 @@ public class Fireball extends Spell {
 
     @Override
     protected void die() {
-
+        SpellRepository.getInstance().unregisterEntity(this);
     }
 
     private void updateAnimation() {
