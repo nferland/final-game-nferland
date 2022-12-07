@@ -35,7 +35,7 @@ public abstract class Enemy extends MovableEntity {
 
     protected void moveTowardPlayer(int farthest) {
         if ( EngineMath.getDistanceBetween(this, player) < farthest) {
-            if(player.getX() > getX() || player.getX() < getX()) {
+            if(Math.abs(player.getX() - getX()) > Math.abs(player.getY() - getY())) {
                 horizontalMovement();
                 if (hasMoved()) {
                     return;
