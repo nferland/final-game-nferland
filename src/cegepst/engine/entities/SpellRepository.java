@@ -49,7 +49,7 @@ public class SpellRepository implements Iterable<Spell>{
 
     private SpellRepository() {
         registeredSpells = new ArrayList<>();
-        fireballAnimation = new WeaponAnimations(FIREBALL_SPRITE_PATH, 32, 32, 0, 0);
+        fireballAnimation = new WeaponAnimations(FIREBALL_SPRITE_PATH, 16, 16, 0, 0);
     }
 
     private void loadFireballAnimation(ImageLoader imageLoader) {
