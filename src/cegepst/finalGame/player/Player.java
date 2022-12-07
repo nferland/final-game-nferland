@@ -3,6 +3,7 @@ package cegepst.finalGame.player;
 import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.Dimension;
+import cegepst.engine.entities.SpellRepository;
 import cegepst.engine.entities.stateMachines.AttackState;
 import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
@@ -25,7 +26,6 @@ public class Player extends ControllableEntity {
     private MovementAnimations walkingAnimations;
     private ArrayList<DashGhost> dashGhosts;
     private Sword sword;
-    private ArrayList<Fireball> fireballs;
     private long ghostApparitionRate = 20;
     private long lastGhostApparition = 0l;
     private Mana mana;
@@ -40,7 +40,6 @@ public class Player extends ControllableEntity {
         setDashSpeed(15);
         walkingAnimations = new MovementAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
         sword = new Sword("images/sword.png", new Dimension(32), new Dimension(32), 6);
-        fireballs = new ArrayList<>();
         dashGhosts = new ArrayList<>();
         mana = new Mana( 20, 3);
         setMaxHealthPoint(30);
@@ -57,7 +56,6 @@ public class Player extends ControllableEntity {
     @Override
     public void draw(Buffer buffer) {
         drawWeapons(buffer);
-        drawSpells(buffer);
         if (isDashing()) {
             buffer.drawImage(Animator.draw(getDirection(), walkingAnimations, walkingAnimations.getDashFrame()),
                     x - Camera.getInstance().getX() , y - Camera.getInstance().getY());
@@ -79,7 +77,6 @@ public class Player extends ControllableEntity {
         Animator.animate(hasMoved(), walkingAnimations, 1);
         updateDashGhosts();
         updateSword();
-        updateSpells();
         mana.update();
     }
 
@@ -95,10 +92,10 @@ public class Player extends ControllableEntity {
         sword.attack();
     }
 
-    public void cast(ImageLoader imageLoader) {
+    public void cast() {
         if(Fireball.MANA_COST <= mana.getManaPoint()) {
             Fireball fireball = new Fireball(fireballLifeSpan, this);
-            fireballs.add(fireball);
+            SpellRepository.getInstance().registerEntity(fireball);
             mana.reduceMana(fireball.getManaCost());
         }
     }
@@ -160,13 +157,6 @@ public class Player extends ControllableEntity {
         sword.updatePlacement(this);
     }
 
-    public void updateSpells() {
-        for (Fireball fireball : fireballs) {
-            fireball.update();
-        }
-        destroyDeadSpells();
-    }
-
     private void updateIndex() {
         attackSoundIndex++;
         if (attackSoundIndex > ATTACK_SOUNDS.length - 1) {
@@ -174,9 +164,6 @@ public class Player extends ControllableEntity {
         }
     }
 
-    private void destroyDeadSpells() {
-        fireballs.removeIf(fireball -> !fireball.stillActive());
-    }
 
     private void drawDashGhosts(Buffer buffer) {
         for (DashGhost dashGhost : dashGhosts) {
@@ -190,12 +177,6 @@ public class Player extends ControllableEntity {
         }
         if (attackState == AttackState.Range) {
             // TODO : draw range weapon
-        }
-    }
-
-    private void drawSpells(Buffer buffer) {
-        for (Fireball fireball : fireballs) {
-            fireball.draw(buffer);
         }
     }
 
