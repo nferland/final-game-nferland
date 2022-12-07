@@ -21,7 +21,7 @@ public abstract class Weapon extends StaticEntity {
     public Weapon(String path, Dimension hitboxDimension, Dimension spriteDimension) {
         SPRITE_PATH = path;
         this.dimension = spriteDimension;
-        animations = new WeaponAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0);
+        animations = new WeaponAnimations(SPRITE_PATH, getWidth(), getHeight(), 0, 0, 4);
         this.hitboxDimension =  hitboxDimension;
     }
 

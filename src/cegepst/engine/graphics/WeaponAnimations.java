@@ -6,8 +6,8 @@ public class WeaponAnimations extends Animations{
 
     private BufferedImage spriteSheet;
 
-    public WeaponAnimations(String path, int width, int height, int x, int y) {
-        super(path, width, height, x, y, 4);
+    public WeaponAnimations(String path, int width, int height, int x, int y, int qte) {
+        super(path, width, height, x, y, qte);
     }
 
     @Override

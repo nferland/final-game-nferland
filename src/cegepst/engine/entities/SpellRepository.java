@@ -13,7 +13,9 @@ public class SpellRepository implements Iterable<Spell>{
     private static SpellRepository instance;
     private final List<Spell> registeredSpells;
     private final String FIREBALL_SPRITE_PATH = "images/fire-Sheet.png";
+    private final String ICE_BURST_SPRITE_PATH = "";
     private final WeaponAnimations fireballAnimation;
+//    private final WeaponAnimations iceburstAnimation;
 
     public static SpellRepository getInstance() {
         if (instance == null) {
@@ -53,7 +55,7 @@ public class SpellRepository implements Iterable<Spell>{
 
     private SpellRepository() {
         registeredSpells = new ArrayList<>();
-        fireballAnimation = new WeaponAnimations(FIREBALL_SPRITE_PATH, 16, 16, 0, 0);
+        fireballAnimation = new WeaponAnimations(FIREBALL_SPRITE_PATH, 16, 16, 0, 0, 4);
     }
 
     private void loadFireballAnimation(ImageLoader imageLoader) {
