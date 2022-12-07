@@ -12,6 +12,7 @@ public class GamePad extends MovementController {
     private int musicKey = KeyEvent.VK_M;
     private int dashKey = KeyEvent.VK_SHIFT;
     private int spellKey = KeyEvent.VK_F;
+    private int burstKey = KeyEvent.VK_E;
 
     public GamePad() {
         bindKey(quitKey);
@@ -20,6 +21,7 @@ public class GamePad extends MovementController {
         bindKey(musicKey, 100);
         bindKey(dashKey, 1000);
         bindKey(spellKey, 500);
+        bindKey(burstKey, 1000);
     }
 
     public void useWASDMovement() {
@@ -51,5 +53,9 @@ public class GamePad extends MovementController {
 
     public boolean isSpellPressed() {
         return isKeyPressed(spellKey);
+    }
+
+    public boolean isBurstPressed() {
+        return isKeyPressed(burstKey);
     }
 }
