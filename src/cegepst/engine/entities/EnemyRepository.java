@@ -14,7 +14,9 @@ public class EnemyRepository implements Iterable<Enemy> {
     private static EnemyRepository instance;
     private final List<Enemy> registeredEnemies;
     private final String ZOMBIE_SPRITE_PATH = "images/zombie.png";
+    private final String LICH_SPRITE_PATH = "images/lich.png";
     private final MovementAnimations zombieAnimation;
+    private final MovementAnimations lichAnimation;
 
     public static EnemyRepository getInstance() {
         if (instance == null) {
@@ -35,13 +37,17 @@ public class EnemyRepository implements Iterable<Enemy> {
         registeredEnemies.remove(entity);
     }
 
-    public void loadZombieAnimation() {
-        zombieAnimation.loadSpriteSheet(new ImageLoader());
-        zombieAnimation.loadAnimations();
+    public void loadAnimations(ImageLoader imageLoader) {
+        loadZombieAnimation(imageLoader);
+        loadLichAnimation(imageLoader);
     }
 
     public MovementAnimations getZombieAnimation() {
         return zombieAnimation;
+    }
+
+    public MovementAnimations getLichAnimation() {
+        return lichAnimation;
     }
 
     public void unregisterEntities(Collection<Enemy> entities) {
@@ -60,5 +66,16 @@ public class EnemyRepository implements Iterable<Enemy> {
     private EnemyRepository() {
         registeredEnemies = new ArrayList<>();
         zombieAnimation = new MovementAnimations(ZOMBIE_SPRITE_PATH, 32, 32, 0, 0);
+        lichAnimation = new MovementAnimations(LICH_SPRITE_PATH, 32, 32, 0, 0);
+    }
+
+    private void loadZombieAnimation(ImageLoader imageLoader) {
+        zombieAnimation.loadSpriteSheet(imageLoader);
+        zombieAnimation.loadAnimations();
+    }
+
+    private void loadLichAnimation(ImageLoader imageLoader) {
+        lichAnimation.loadSpriteSheet(imageLoader);
+        lichAnimation.loadAnimations();
     }
 }

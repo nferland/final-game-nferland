@@ -11,7 +11,7 @@ import java.awt.*;
 
 public abstract class Enemy extends MovableEntity {
 
-    private final ControllableEntity player;
+    protected final ControllableEntity player;
     private int damage;
     private int scoreValue;
 
