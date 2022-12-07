@@ -87,6 +87,9 @@ public class DungeonCrawlerGame extends Game {
         if (gamePad.isSpellPressed()) {
             player.cast();
         }
+        if(gamePad.isBurstPressed()) {
+            player.burst();
+        }
     }
 
     private void updateSpells() {

@@ -11,6 +11,7 @@ import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
 import cegepst.finalGame.audio.Sound;
 import cegepst.finalGame.weapons.Fireball;
+import cegepst.finalGame.weapons.IceBurst;
 import cegepst.finalGame.weapons.Sword;
 
 import java.awt.*;
@@ -30,6 +31,7 @@ public class Player extends ControllableEntity {
     private long lastGhostApparition = 0l;
     private Mana mana;
     private long fireballLifeSpan = 2000;
+    private long iceburstLifeSpan = 2000;
     private int attackSoundIndex = 0;
 
     public Player(MovementController controller) {
@@ -93,9 +95,16 @@ public class Player extends ControllableEntity {
     }
 
     public void cast() {
-        if(Fireball.MANA_COST <= mana.getManaPoint()) {
+        if (Fireball.MANA_COST <= mana.getManaPoint()) {
             Fireball fireball = new Fireball(fireballLifeSpan, this);
             mana.reduceMana(fireball.getManaCost());
+        }
+    }
+
+    public void burst() {
+        if (IceBurst.MANA_COST <= mana.getManaPoint()) {
+            IceBurst iceBurst = new IceBurst(iceburstLifeSpan, this);
+            mana.reduceMana(iceBurst.getManaCost());
         }
     }
 
@@ -105,7 +114,7 @@ public class Player extends ControllableEntity {
         if (hurtState != HurtState.Invulnerable) {
             Sound.PLAYER_HURT.play();
         }
-        if(hurtState == HurtState.Dead) {
+        if (hurtState == HurtState.Dead) {
             die();
         }
     }
