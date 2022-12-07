@@ -2,6 +2,7 @@ package cegepst.finalGame;
 
 import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.EnemyRepository;
+import cegepst.engine.entities.SpellRepository;
 import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.Game;
@@ -28,7 +29,7 @@ public class DungeonCrawlerGame extends Game {
     @Override
     protected void initialize() {
         imageLoader = new ImageLoader();
-        EnemyRepository.getInstance().loadZombieAnimation();
+        EnemyRepository.getInstance().loadAnimations(imageLoader);
         SpellRepository.getInstance().loadAnimations(imageLoader);
         initializePlayer();
         initializeEnemies();
