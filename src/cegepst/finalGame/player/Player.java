@@ -95,7 +95,6 @@ public class Player extends ControllableEntity {
     public void cast() {
         if(Fireball.MANA_COST <= mana.getManaPoint()) {
             Fireball fireball = new Fireball(fireballLifeSpan, this);
-            SpellRepository.getInstance().registerEntity(fireball);
             mana.reduceMana(fireball.getManaCost());
         }
     }
