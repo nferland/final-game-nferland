@@ -29,7 +29,7 @@ public class DungeonCrawlerGame extends Game {
         EnemyRepository.getInstance().loadAnimations(imageLoader);
         SpellRepository.getInstance().loadAnimations(imageLoader);
         initializePlayer();
-        initializeEnemies();
+//        initializeEnemies();
         initializeWorld();
         Music.WIND_BACKGROUND.play();
 
@@ -53,6 +53,7 @@ public class DungeonCrawlerGame extends Game {
     protected void drawOnBuffer(Buffer buffer) {
         Camera.getInstance().draw(buffer, world.getBackground());
         drawEnemies(buffer);
+        world.drawBlockades(buffer);
         hud.draw(buffer, player);
     }
 
@@ -117,7 +118,7 @@ public class DungeonCrawlerGame extends Game {
         hud = new Hud();
         player = new Player(gamePad);
         player.load(imageLoader);
-        player.teleport(400, 300);
+        player.teleport(120, 120);
     }
 
     private void initializeEnemies() {
@@ -126,7 +127,7 @@ public class DungeonCrawlerGame extends Game {
     }
 
     private void initializeWorld() {
-        world = new World(new Dimension(2400, 960));
+        world = new World(new Dimension(1920, 1920));
         world.load(imageLoader);
     }
 
