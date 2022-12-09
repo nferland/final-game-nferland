@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class World {
 
-    private static final String MAP_PATH = "maps/outdoor.png";
+    private static final String MAP_PATH = "maps/map.png";
     private Image background;
     private ArrayList<Blockade> blockades;
     private ArrayList<SpawnPoint> spawnPoints;
@@ -48,7 +48,7 @@ public class World {
     }
 
     private void createBlockades() {
-        createBlockade(new Dimension(2400, 48), 0, 0);
+        createBlockade(new Dimension(1920, 48), 0, 0);
         createBlockade(new Dimension(2400, 32), 0, 928);
         createBlockade(new Dimension(32, 960), 0, 0);
         createBlockade(new Dimension(32, 960), 2368, 0);
