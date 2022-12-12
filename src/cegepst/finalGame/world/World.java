@@ -1,14 +1,11 @@
 package cegepst.finalGame.world;
 
-import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.Dimension;
-import cegepst.engine.entities.StaticEntity;
+import cegepst.engine.entities.SpawnPoint;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.ImageLoader;
-import cegepst.engine.graphics.Camera;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class World {
@@ -28,7 +25,7 @@ public class World {
         y = 0;
         this.dimension = dimension;
         createBlockades();
-//        createSpawnPoints();
+        createSpawnPoints();
     }
 
     public void load(ImageLoader imageLoader) {
@@ -86,11 +83,16 @@ public class World {
     }
 
     private void createSpawnPoints() {
-        createSpawnPoint(500, 500);
-        createSpawnPoint(50, 450);
+        createBossSpawnPoint(1200, 1200);
+        createMobSpawnPoint(900, 300);
+        createMobSpawnPoint(450, 950);
     }
 
-    private void createSpawnPoint(int x, int y) {
-        spawnPoints.add(new SpawnPoint(x, y, 3000));
+    private void createMobSpawnPoint(int x, int y) {
+        spawnPoints.add(new MobSpawnPoint(x, y, 3000));
+    }
+
+    private void createBossSpawnPoint(int x, int y) {
+        spawnPoints.add(new BossSpawnPoint(x, y, 0));
     }
 }
