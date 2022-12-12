@@ -9,6 +9,7 @@ public enum Sound {
     FIRE("fire.wav"),
     FIREBALL("fireball.wav"),
     FIREBALL_HIT("fireball-hit.wav"),
+    ICE_BURST("ice-burst.wav"),
     PLAYER_ATTACK1("player-attack1.wav"),
     PLAYER_ATTACK2("player-attack2.wav"),
     PLAYER_ATTACK3("player-attack3.wav"),

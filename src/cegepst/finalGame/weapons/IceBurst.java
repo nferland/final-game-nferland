@@ -10,6 +10,7 @@ import cegepst.engine.entities.stateMachines.SpellState;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.Camera;
 import cegepst.engine.graphics.ImageLoader;
+import cegepst.finalGame.audio.Sound;
 
 import java.awt.*;
 
@@ -25,6 +26,7 @@ public class IceBurst extends Spell {
         setLifespan(lifespan);
         setState(SpellState.Idle);
         setDirection(Direction.NONE);
+        Sound.ICE_BURST.play();
     }
 
     @Override
