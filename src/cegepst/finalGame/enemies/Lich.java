@@ -20,7 +20,7 @@ public class Lich extends Enemy {
     private long lastFireball = 0L;
 
 
-    public Lich(ControllableEntity player, int y, int x) {
+    public Lich(ControllableEntity player, int x, int y) {
         super(player, 150);
         setSpeed(2);
         setMaxHealthPoint(30);
