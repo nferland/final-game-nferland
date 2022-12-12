@@ -57,6 +57,7 @@ public class Fireball extends Spell {
 
     @Override
     protected void die() {
+        Sound.FIREBALL_HIT.play();
         SpellRepository.getInstance().unregisterEntity(this);
     }
 
