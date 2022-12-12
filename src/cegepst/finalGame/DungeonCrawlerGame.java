@@ -27,7 +27,6 @@ public class DungeonCrawlerGame extends Game {
         EnemyRepository.getInstance().loadAnimations(imageLoader);
         SpellRepository.getInstance().loadAnimations(imageLoader);
         initializePlayer();
-//        initializeEnemies();
         initializeWorld();
         Music.WIND_BACKGROUND.play();
 
@@ -117,11 +116,6 @@ public class DungeonCrawlerGame extends Game {
         player = new Player(gamePad);
         player.load(imageLoader);
         player.teleport(120, 120);
-    }
-
-    private void initializeEnemies() {
-        new Zombie(player, 300, 500);
-        new Zombie(player, 600, 50);
     }
 
     private void initializeWorld() {
