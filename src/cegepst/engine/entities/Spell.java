@@ -78,7 +78,6 @@ public abstract class Spell extends MovableEntity {
             if(hitBoxIntersectWith(enemy) && enemy != caster) {
                 enemy.hurt(damage, getDirection());
                 setState(SpellState.Expired);
-                Sound.FIREBALL_HIT.play();
             }
             if(enemy.isDead()) {
                 killedEntities.add(enemy);

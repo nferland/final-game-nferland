@@ -38,9 +38,9 @@ public class Lich extends Enemy {
         Animator.animate(hasMoved(), movementAnimations, 1);
     }
 
-@Override
+    @Override
     public void hurt(int damage, Direction kbDirection) {
-        if (hurtState != HurtState.Invulnerable){
+        if (hurtState == HurtState.NotHurt){
             Sound.LICH_HURT.play();
         }
         super.hurt(damage, kbDirection);
