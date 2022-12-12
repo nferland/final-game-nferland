@@ -10,10 +10,8 @@ import cegepst.engine.graphics.RenderingEngine;
 import cegepst.finalGame.audio.Music;
 import cegepst.finalGame.enemies.Zombie;
 import cegepst.finalGame.player.Player;
-import cegepst.finalGame.world.SpawnPoint;
+import cegepst.engine.entities.SpawnPoint;
 import cegepst.finalGame.world.World;
-
-import java.util.ArrayList;
 
 public class DungeonCrawlerGame extends Game {
 
