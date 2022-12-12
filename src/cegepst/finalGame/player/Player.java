@@ -31,7 +31,7 @@ public class Player extends ControllableEntity {
     private long lastGhostApparition = 0l;
     private Mana mana;
     private long fireballLifeSpan = 2000;
-    private long iceburstLifeSpan = 2000;
+    private long iceburstLifeSpan = 1500;
     private int attackSoundIndex = 0;
 
     public Player(MovementController controller) {
