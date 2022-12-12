@@ -83,7 +83,7 @@ public class World {
     }
 
     private void createSpawnPoints() {
-        createBossSpawnPoint(1200, 1200);
+        createBossSpawnPoint(1100, 1500);
         createMobSpawnPoint(900, 300);
         createMobSpawnPoint(450, 950);
     }
