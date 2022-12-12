@@ -22,7 +22,7 @@ public class Blockade extends StaticEntity {
 
     @Override
     public void draw(Buffer buffer) {
-//        buffer.drawRectangle(x - Camera.getInstance().getxOffset(this), y - Camera.getInstance().getyOffset(this),
+//        buffer.drawRectangle(x - Camera.getInstance().getX(), y - Camera.getInstance().getY(),
 //                getWidth(), getHeight(),
 //                new Color(255, 0, 0, 100));
     }
