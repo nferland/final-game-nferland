@@ -28,7 +28,7 @@ public class DungeonCrawlerGame extends Game {
         SpellRepository.getInstance().loadAnimations(imageLoader);
         initializePlayer();
         initializeWorld();
-        Music.WIND_BACKGROUND.play();
+        Music.PRICE_BACKGROUND.play();
 
         //RenderingEngine.getInstance().getScreen().fullScreen();
         RenderingEngine.getInstance().getScreen().hideCursor();
@@ -56,7 +56,7 @@ public class DungeonCrawlerGame extends Game {
 
     private void updateGameContinuation() {
         if (player.getHurtState() == HurtState.Dead) {
-            Music.WIND_BACKGROUND.stop();
+            Music.PRICE_BACKGROUND.stop();
             stop();
         }
         if (Score.getInstance().getScore() >= 1000) {
@@ -67,14 +67,14 @@ public class DungeonCrawlerGame extends Game {
 
     private void updateInputs() {
         if (gamePad.isQuitPressed()) {
-            Music.WIND_BACKGROUND.stop();
+            Music.PRICE_BACKGROUND.stop();
             stop();
         }
         if (gamePad.isTogglePressed()) {
             RenderingEngine.getInstance().getScreen().toggleFullScreen();
         }
         if (gamePad.isMusicPressed()) {
-            Music.WIND_BACKGROUND.toggle();
+            Music.PRICE_BACKGROUND.toggle();
         }
         if (gamePad.isAttackPressed()) {
             player.attack();

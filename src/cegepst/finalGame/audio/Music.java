@@ -6,7 +6,7 @@ import javax.sound.sampled.Clip;
 
 public enum Music {
 
-    WIND_BACKGROUND("wind2.wav");
+    PRICE_BACKGROUND("price.wav");
 
     private Clip clip;
 
