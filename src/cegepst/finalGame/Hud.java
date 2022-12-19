@@ -13,11 +13,13 @@ public class Hud {
         buffer.drawString("TOGGLE FULLSCREEN: <T>, FIRE SOUND: <SPACE>, TOGGLE MUSIC: <M>, QUIT: <Q>", 10, 584, Color.WHITE);
         drawPlayerInfo(buffer, player);
         buffer.drawString("Score : " + Score.getInstance().getScore(),350, 20 , Color.WHITE);
+        buffer.drawString("Level : " + Score.getInstance().getLevel(), 350, 40, Color.WHITE);
     }
 
     private void drawPlayerInfo(Buffer buffer, Player player) {
         drawPlayerHealthBar(buffer, player);
         drawPlayerManaBar(buffer, player);
+        buffer.drawString("X : " + player.getX() + ", Y : " + player.getY(), 40, 110, Color.WHITE);
     }
 
     private void drawPlayerManaBar(Buffer buffer, Player player) {
