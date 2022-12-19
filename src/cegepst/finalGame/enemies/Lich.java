@@ -23,7 +23,7 @@ public class Lich extends Enemy {
     public Lich(ControllableEntity player, int x, int y) {
         super(player, 150);
         setSpeed(2);
-        setMaxHealthPoint(30);
+        setMaxHealthPoint(30 + Score.getInstance().getLevel() * 2);
         teleport(x, y);
         setHealthPoint(getMaxHealthPoint());
         setDamage(5);

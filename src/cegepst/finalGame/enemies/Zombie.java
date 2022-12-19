@@ -18,7 +18,7 @@ public class Zombie extends Enemy {
         setSpeed(1);
         teleport(x, y);
         setDamage(2);
-        setMaxHealthPoint(10);
+        setMaxHealthPoint(10 + Score.getInstance().getLevel());
         setHealthPoint(getMaxHealthPoint());
         this.dimension = new Dimension(32);
         movementAnimations = EnemyRepository.getInstance().getZombieAnimation();
