@@ -19,7 +19,6 @@ public class Hud {
     private void drawPlayerInfo(Buffer buffer, Player player) {
         drawPlayerHealthBar(buffer, player);
         drawPlayerManaBar(buffer, player);
-        buffer.drawString("X : " + player.getX() + ", Y : " + player.getY(), 40, 110, Color.WHITE);
     }
 
     private void drawPlayerManaBar(Buffer buffer, Player player) {
