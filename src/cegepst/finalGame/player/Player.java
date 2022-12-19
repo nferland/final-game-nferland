@@ -9,6 +9,7 @@ import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.controls.MovementController;
+import cegepst.finalGame.Score;
 import cegepst.finalGame.audio.Sound;
 import cegepst.finalGame.weapons.Fireball;
 import cegepst.finalGame.weapons.IceBurst;
@@ -123,9 +124,16 @@ public class Player extends ControllableEntity {
         return hurtState;
     }
 
+    public void nextLevel() {
+        teleport(120, 120);
+        resetHealth();
+        resetMana();
+    }
+
     public double getMaxManaPoint() {
         return mana.getMaxManaPoint();
     }
+
 
     public void setMaxManaPoint(int maxManaPoint) {
         mana.setMaxManaPoint(maxManaPoint);
@@ -141,6 +149,16 @@ public class Player extends ControllableEntity {
 
     protected void loadSpriteSheet(ImageLoader imageLoader) {
         walkingAnimations.loadSpriteSheet(imageLoader, DASH_PATH);
+    }
+
+    private void resetHealth() {
+        setMaxHealthPoint(getMaxHealthPoint() + Score.getInstance().getLevel() * 2);
+        setHealthPoint(getMaxHealthPoint());
+    }
+
+    private void resetMana() {
+        setMaxManaPoint((int) (getMaxManaPoint() + Score.getInstance().getLevel() * 2));
+        setManaPoint((int) getMaxManaPoint());
     }
 
     protected void loadAnimationFrames() {

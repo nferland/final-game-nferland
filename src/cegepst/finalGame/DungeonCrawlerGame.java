@@ -1,6 +1,8 @@
 package cegepst.finalGame;
 
+import cegepst.engine.CountDown;
 import cegepst.engine.entities.*;
+import cegepst.engine.entities.Dimension;
 import cegepst.engine.entities.stateMachines.HurtState;
 import cegepst.engine.graphics.*;
 import cegepst.engine.Game;
@@ -10,6 +12,8 @@ import cegepst.finalGame.player.Player;
 import cegepst.engine.entities.SpawnPoint;
 import cegepst.finalGame.world.World;
 
+import java.awt.*;
+
 public class DungeonCrawlerGame extends Game {
 
     private ImageLoader imageLoader;
@@ -18,10 +22,12 @@ public class DungeonCrawlerGame extends Game {
     private World world;
     private Hud hud;
     private int currentLevel;
+    private CountDown nextLevelCountDown;
 
     @Override
     protected void initialize() {
         imageLoader = new ImageLoader();
+        nextLevelCountDown = new CountDown(1500);
         EnemyRepository.getInstance().loadAnimations(imageLoader);
         SpellRepository.getInstance().loadAnimations(imageLoader);
         initializePlayer();
@@ -35,22 +41,20 @@ public class DungeonCrawlerGame extends Game {
 
     @Override
     protected void update() {
-        updateInputs();
-        player.update();
-        Camera.getInstance().update(world.getDimension());
-        updateSpells();
-        updateSpwanPoints();
-        updateEnemies();
-        updateTriggers();
-        updateGameContinuation();
+        if (nextLevelCountDown.isStillActive()) {
+            return;
+        }
+        updateLevel();
     }
 
     @Override
     protected void drawOnBuffer(Buffer buffer) {
-        Camera.getInstance().draw(buffer, world.getBackground());
-        drawEnemies(buffer);
-        world.drawBlockades(buffer);
-        hud.draw(buffer, player);
+        if(nextLevelCountDown.isStillActive()) {
+            buffer.drawRectangle(0, 0, 800, 600, Color.BLACK);
+            buffer.drawString("Next Level", 300, 275, Color.WHITE);
+            return;
+        }
+        drawLevel(buffer);
     }
 
     private void updateGameContinuation() {
@@ -67,11 +71,23 @@ public class DungeonCrawlerGame extends Game {
         }
     }
 
+    private void updateLevel() {
+        updateInputs();
+        player.update();
+        Camera.getInstance().update(world.getDimension());
+        updateSpells();
+        updateSpwanPoints();
+        updateEnemies();
+        updateTriggers();
+        updateGameContinuation();
+    }
+
     private void nextLevel() {
         currentLevel = Score.getInstance().getLevel();
-        player.teleport(120, 120);
+        player.nextLevel();
         EnemyRepository.getInstance().clear();
         SpellRepository.getInstance().clear();
+        nextLevelCountDown.start();
     }
 
     private void updateInputs() {
@@ -120,6 +136,13 @@ public class DungeonCrawlerGame extends Game {
         for (SpawnPoint spawnPoint : world.getSpawnPoints()) {
             spawnPoint.update(player);
         }
+    }
+
+    private void drawLevel(Buffer buffer) {
+        Camera.getInstance().draw(buffer, world.getBackground());
+        drawEnemies(buffer);
+        world.drawBlockades(buffer);
+        hud.draw(buffer, player);
     }
 
     private void initializePlayer() {
