@@ -28,17 +28,12 @@ public class DungeonCrawlerGame extends Game {
     @Override
     protected void initialize() {
         imageLoader = new ImageLoader();
-        nextLevelCountDown = new CountDown(1500);
-        gameOverCountDown = new CountDown(2000);
-        EnemyRepository.getInstance().loadAnimations(imageLoader);
-        SpellRepository.getInstance().loadAnimations(imageLoader);
-        initializePlayer();
-        initializeWorld();
+        initializeCountDowns();
+        loadAnimations();
+        initializeLevel();
         Music.PRICE_BACKGROUND.play();
-        currentLevel = Score.getInstance().getLevel();
         //RenderingEngine.getInstance().getScreen().fullScreen();
         RenderingEngine.getInstance().getScreen().hideCursor();
-        Camera.getInstance().setMainEntity(player);
     }
 
     @Override
@@ -84,14 +79,10 @@ public class DungeonCrawlerGame extends Game {
     }
 
     private void updateLevel() {
-        updateInputs();
-        player.update();
-        Camera.getInstance().update(world.getDimension());
-        updateSpells();
-        updateSpwanPoints();
-        updateEnemies();
+        updateEntities();
         updateTriggers();
         updateGameContinuation();
+        updateInputs();
     }
 
     private void nextLevel() {
@@ -127,6 +118,14 @@ public class DungeonCrawlerGame extends Game {
         }
     }
 
+    private void updateEntities() {
+        player.update();
+        Camera.getInstance().update(world.getDimension());
+        updateSpells();
+        updateSpwanPoints();
+        updateEnemies();
+    }
+
     private void updateTriggers() {
         world.updateTrigger(player);
     }
@@ -160,6 +159,23 @@ public class DungeonCrawlerGame extends Game {
     private void drawBlackScreenMessage(Buffer buffer, String message) {
         buffer.drawRectangle(0, 0, 800, 600, Color.BLACK);
         buffer.drawString(message, 350, 275, Color.WHITE);
+    }
+
+    private void initializeCountDowns() {
+        nextLevelCountDown = new CountDown(1500);
+        gameOverCountDown = new CountDown(2000);
+    }
+
+    private void initializeLevel() {
+        initializePlayer();
+        initializeWorld();
+        currentLevel = Score.getInstance().getLevel();
+        Camera.getInstance().setMainEntity(player);
+    }
+
+    private void loadAnimations() {
+        EnemyRepository.getInstance().loadAnimations(imageLoader);
+        SpellRepository.getInstance().loadAnimations(imageLoader);
     }
 
     private void initializePlayer() {
