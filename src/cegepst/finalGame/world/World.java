@@ -6,6 +6,7 @@ import cegepst.engine.entities.DoorTrigger;
 import cegepst.engine.entities.SpawnPoint;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.ImageLoader;
+import cegepst.finalGame.Score;
 import cegepst.finalGame.player.Player;
 
 import java.awt.*;
@@ -57,6 +58,11 @@ public class World {
 
     public void updateTrigger(Player player) {
         doorTrigger.update(player);
+    }
+
+    public void drawTriggerInfo(Buffer buffer) {
+        int neededScore =  500 * (Score.getInstance().getLevel());
+        doorTrigger.draw(buffer, neededScore);
     }
 
     private void initializeDoorTrigger() {

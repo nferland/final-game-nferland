@@ -81,10 +81,6 @@ public class DungeonCrawlerGame extends Game {
         if (Score.getInstance().getLevel() != currentLevel) {
             nextLevel();
         }
-        if (Score.getInstance().getScore() >= 1000 && Score.getInstance().getLevel() == 3) {
-            victory();
-            stop();
-        }
     }
 
     private void updateLevel() {
@@ -109,7 +105,7 @@ public class DungeonCrawlerGame extends Game {
     private void updateInputs() {
         if (gamePad.isQuitPressed()) {
             Music.PRICE_BACKGROUND.stop();
-            stop();
+            super.stop();
         }
         if (gamePad.isTogglePressed()) {
             RenderingEngine.getInstance().getScreen().toggleFullScreen();
@@ -158,6 +154,7 @@ public class DungeonCrawlerGame extends Game {
         Camera.getInstance().draw(buffer, world.getBackground());
         drawEnemies(buffer);
         hud.draw(buffer, player);
+        world.drawTriggerInfo(buffer);
     }
 
     private void drawBlackScreenMessage(Buffer buffer, String message) {

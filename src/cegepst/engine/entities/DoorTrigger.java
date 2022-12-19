@@ -8,7 +8,7 @@ import cegepst.finalGame.Score;
 import java.awt.*;
 
 public class DoorTrigger extends Trigger {
-    private Color color = Color.RED;
+    private boolean intersectWithPlayer = false;
 
     public DoorTrigger(Dimension dimension, int x, int y) {
         super(dimension, x, y);
@@ -16,19 +16,23 @@ public class DoorTrigger extends Trigger {
 
     @Override
     public void update(ControllableEntity player) {
-        if (intersectWith(player)) {
-            color = Color.BLUE;
+        intersectWithPlayer = intersectWith(player);
+        if (intersectWithPlayer) {
             if(Score.getInstance().hasScoreForNextLevel()) {
                 Score.getInstance().nextLevel();
             }
-            return;
         }
-        color = Color.RED;
     }
 
-    public void draw(Buffer buffer) {
-        buffer.drawRectangle(getX() - Camera.getInstance().getX(), getY() - Camera.getInstance().getY(),
-                getHeight(), getWidth(), color);
+    public void draw(Buffer buffer, int neededScore) {
+        if (intersectWithPlayer && neededScore > Score.getInstance().getScore()) {
+            buffer.drawRectangle(getX() - Camera.getInstance().getX() - 64, getY() - 48 - Camera.getInstance().getY(),
+                    160, 44, new Color(0,0,0, 175));
+            buffer.drawString("You need a score of " + neededScore,
+                    getX() - Camera.getInstance().getX() - 55, getY() - 32 - Camera.getInstance().getY(), Color.WHITE);
+            buffer.drawString(" to pass to the next level",
+                    getX() - Camera.getInstance().getX() - 55, getY() - 16 - Camera.getInstance().getY(), Color.WHITE);
+        }
     }
 
     @Override
