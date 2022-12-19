@@ -23,11 +23,13 @@ public class DungeonCrawlerGame extends Game {
     private Hud hud;
     private int currentLevel;
     private CountDown nextLevelCountDown;
+    private CountDown gameOverCountDown;
 
     @Override
     protected void initialize() {
         imageLoader = new ImageLoader();
         nextLevelCountDown = new CountDown(1500);
+        gameOverCountDown = new CountDown(2000);
         EnemyRepository.getInstance().loadAnimations(imageLoader);
         SpellRepository.getInstance().loadAnimations(imageLoader);
         initializePlayer();
@@ -41,7 +43,7 @@ public class DungeonCrawlerGame extends Game {
 
     @Override
     protected void update() {
-        if (nextLevelCountDown.isStillActive()) {
+        if (nextLevelCountDown.isStillActive() || gameOverCountDown.isStillActive()) {
             return;
         }
         updateLevel();
@@ -50,17 +52,31 @@ public class DungeonCrawlerGame extends Game {
     @Override
     protected void drawOnBuffer(Buffer buffer) {
         if(nextLevelCountDown.isStillActive()) {
-            buffer.drawRectangle(0, 0, 800, 600, Color.BLACK);
-            buffer.drawString("Next Level", 300, 275, Color.WHITE);
+            drawBlackScreenMessage(buffer, "Next Level...");
+            return;
+        }
+        if (gameOverCountDown.isStillActive()) {
+            drawBlackScreenMessage(buffer, "Game Over");
             return;
         }
         drawLevel(buffer);
     }
 
+    @Override
+    protected void stop() {
+        if(gameOverCountDown.expired()) {
+            super.stop();
+        }
+    }
+
     private void updateGameContinuation() {
         if (player.getHurtState() == HurtState.Dead) {
             Music.PRICE_BACKGROUND.stop();
+            if (gameOverCountDown.notActivated()){
+                gameOverCountDown.start();
+            }
             stop();
+            return;
         }
         if (Score.getInstance().getLevel() != currentLevel) {
             nextLevel();
@@ -141,8 +157,12 @@ public class DungeonCrawlerGame extends Game {
     private void drawLevel(Buffer buffer) {
         Camera.getInstance().draw(buffer, world.getBackground());
         drawEnemies(buffer);
-        world.drawBlockades(buffer);
         hud.draw(buffer, player);
+    }
+
+    private void drawBlackScreenMessage(Buffer buffer, String message) {
+        buffer.drawRectangle(0, 0, 800, 600, Color.BLACK);
+        buffer.drawString(message, 350, 275, Color.WHITE);
     }
 
     private void initializePlayer() {

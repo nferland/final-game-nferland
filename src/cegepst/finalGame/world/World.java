@@ -53,7 +53,6 @@ public class World {
         for (Blockade blockade : blockades) {
             blockade.draw(buffer);
         }
-        doorTrigger.draw(buffer);
     }
 
     public void updateTrigger(Player player) {
