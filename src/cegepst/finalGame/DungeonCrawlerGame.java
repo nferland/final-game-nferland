@@ -99,6 +99,10 @@ public class DungeonCrawlerGame extends Game {
         }
     }
 
+    private void updateTriggers() {
+        world.updateTrigger(player);
+    }
+
     private void updateSpells() {
         for (Spell spell : SpellRepository.getInstance()) {
             spell.update(player);

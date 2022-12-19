@@ -1,9 +1,12 @@
 package cegepst.finalGame.world;
 
+import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.Dimension;
+import cegepst.engine.entities.DoorTrigger;
 import cegepst.engine.entities.SpawnPoint;
 import cegepst.engine.graphics.Buffer;
 import cegepst.engine.graphics.ImageLoader;
+import cegepst.finalGame.player.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ public class World {
     private ArrayList<Blockade> blockades;
     private ArrayList<SpawnPoint> spawnPoints;
     private Dimension dimension;
+    private DoorTrigger doorTrigger;
     private int x;
     private int y;
 
@@ -24,6 +28,7 @@ public class World {
         x = 0;
         y = 0;
         this.dimension = dimension;
+        initializeDoorTrigger();
         createBlockades();
         createSpawnPoints();
     }
@@ -48,6 +53,15 @@ public class World {
         for (Blockade blockade : blockades) {
             blockade.draw(buffer);
         }
+        doorTrigger.draw(buffer);
+    }
+
+    public void updateTrigger(Player player) {
+        doorTrigger.update(player);
+    }
+
+    private void initializeDoorTrigger() {
+        doorTrigger = new DoorTrigger(new Dimension(32, 64), 1744, 368);
     }
 
     private void createBlockades() {

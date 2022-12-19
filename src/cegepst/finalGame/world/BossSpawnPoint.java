@@ -1,6 +1,5 @@
 package cegepst.finalGame.world;
 
-import cegepst.engine.EngineMath;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.SpawnPoint;
 import cegepst.finalGame.Score;
@@ -18,7 +17,7 @@ public class BossSpawnPoint extends SpawnPoint {
     }
 
     private void spawnLich(ControllableEntity player) {
-        if (Score.getInstance().getScore() % 100 == 0
+        if (Score.getInstance().getScoreForLevel() >= 350
                 && Score.getInstance().getScore() != 0 && spawnedEnemy < maxEnemy
                 && playerIsNear(player)) {
             createLich(player);
