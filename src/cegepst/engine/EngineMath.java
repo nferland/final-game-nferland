@@ -32,4 +32,8 @@ public class EngineMath {
         int deltaY = Math.abs(entity.getY() - spawnPoint.getY());
         return (int) Math.floor(Math.sqrt(squareOf(deltaX) + squareOf(deltaY)));
     }
+
+    public static boolean between(int value, int min, int range) {
+        return value >= min && value <= min + range;
+    }
 }
