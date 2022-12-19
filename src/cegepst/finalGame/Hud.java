@@ -10,7 +10,8 @@ public class Hud {
 
     public void draw(Buffer buffer, Player player) {
         buffer.drawString("FPS: " + GameTime.getCurrentFps(), 10, 15, Color.WHITE);
-        buffer.drawString("TOGGLE FULLSCREEN: <T>, FIRE SOUND: <SPACE>, TOGGLE MUSIC: <M>, QUIT: <Q>", 10, 584, Color.WHITE);
+        buffer.drawString("TOGGLE FULLSCREEN: <T>, MELEE ATTACK: <SPACE>, DASH : <SHIFT>, FIREBALL : <F>, ", 10, 568, Color.WHITE);
+        buffer.drawString("ICEBURST: <E> TOGGLE MUSIC: <M>, QUIT: <Q>", 14, 584, Color.WHITE);
         drawPlayerInfo(buffer, player);
         buffer.drawString("Score : " + Score.getInstance().getScore(),350, 20 , Color.WHITE);
         buffer.drawString("Level : " + Score.getInstance().getLevel(), 350, 40, Color.WHITE);
