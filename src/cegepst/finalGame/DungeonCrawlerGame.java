@@ -2,11 +2,8 @@ package cegepst.finalGame;
 
 import cegepst.engine.entities.*;
 import cegepst.engine.entities.stateMachines.HurtState;
-import cegepst.engine.graphics.Buffer;
+import cegepst.engine.graphics.*;
 import cegepst.engine.Game;
-import cegepst.engine.graphics.Camera;
-import cegepst.engine.graphics.ImageLoader;
-import cegepst.engine.graphics.RenderingEngine;
 import cegepst.finalGame.audio.Music;
 import cegepst.finalGame.enemies.Zombie;
 import cegepst.finalGame.player.Player;
@@ -20,6 +17,7 @@ public class DungeonCrawlerGame extends Game {
     private Player player;
     private World world;
     private Hud hud;
+    private int currentLevel;
 
     @Override
     protected void initialize() {
@@ -29,7 +27,7 @@ public class DungeonCrawlerGame extends Game {
         initializePlayer();
         initializeWorld();
         Music.PRICE_BACKGROUND.play();
-
+        currentLevel = Score.getInstance().getLevel();
         //RenderingEngine.getInstance().getScreen().fullScreen();
         RenderingEngine.getInstance().getScreen().hideCursor();
         Camera.getInstance().setMainEntity(player);
@@ -43,6 +41,7 @@ public class DungeonCrawlerGame extends Game {
         updateSpells();
         updateSpwanPoints();
         updateEnemies();
+        updateTriggers();
         updateGameContinuation();
     }
 
@@ -59,10 +58,20 @@ public class DungeonCrawlerGame extends Game {
             Music.PRICE_BACKGROUND.stop();
             stop();
         }
-        if (Score.getInstance().getScore() >= 1000) {
+        if (Score.getInstance().getLevel() != currentLevel) {
+            nextLevel();
+        }
+        if (Score.getInstance().getScore() >= 1000 && Score.getInstance().getLevel() == 3) {
             victory();
             stop();
         }
+    }
+
+    private void nextLevel() {
+        currentLevel = Score.getInstance().getLevel();
+        player.teleport(120, 120);
+        EnemyRepository.getInstance().clear();
+        SpellRepository.getInstance().clear();
     }
 
     private void updateInputs() {

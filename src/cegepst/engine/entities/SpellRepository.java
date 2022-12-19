@@ -26,11 +26,20 @@ public class SpellRepository implements Iterable<Spell>{
 
     public void loadAnimations(ImageLoader imageLoader) {
         loadFireballAnimation(imageLoader);
+//        loadIceburstAnimation(imageLoader);
+    }
+
+    public void clear() {
+        registeredSpells.clear();
     }
 
     public WeaponAnimations getFireballAnimations() {
         return fireballAnimation;
     }
+
+//    public WeaponAnimations getIceburstAnimation() {
+////        return iceburstAnimation;
+//    }
 
     public void registerEntity(Spell entity) {
         registeredSpells.add(entity);
@@ -56,10 +65,16 @@ public class SpellRepository implements Iterable<Spell>{
     private SpellRepository() {
         registeredSpells = new ArrayList<>();
         fireballAnimation = new WeaponAnimations(FIREBALL_SPRITE_PATH, 16, 16, 0, 0, 4);
+//        iceburstAnimation = new WeaponAnimations(ICE_BURST_SPRITE_PATH,288, 288, 0, 0, 1);
     }
 
     private void loadFireballAnimation(ImageLoader imageLoader) {
         fireballAnimation.loadSpriteSheet(imageLoader);
         fireballAnimation.loadAnimations();
+    }
+
+    private void loadIceburstAnimation(ImageLoader imageLoader) {
+//        iceburstAnimation.loadSpriteSheet(imageLoader);
+//        iceburstAnimation.loadAnimations();
     }
 }

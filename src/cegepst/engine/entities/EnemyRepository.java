@@ -29,6 +29,10 @@ public class EnemyRepository implements Iterable<Enemy> {
         registeredEnemies.add(entity);
     }
 
+    public void clear() {
+        registeredEnemies.clear();
+    }
+
     public void registerEntities(Collection<Enemy> entities) {
         registeredEnemies.addAll(entities);
     }
