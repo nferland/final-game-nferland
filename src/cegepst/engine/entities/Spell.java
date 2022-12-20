@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public abstract class Spell extends MovableEntity {
 
     protected WeaponAnimations animations;
+    protected boolean hitAnEnemy = false;
     private Dimension hitboxDimension;
     private int damage = 1;
     private int manaCost;
@@ -78,6 +79,7 @@ public abstract class Spell extends MovableEntity {
             if(hitBoxIntersectWith(enemy) && enemy != caster) {
                 enemy.hurt(damage, getDirection());
                 setState(SpellState.Expired);
+                hitAnEnemy = true;
             }
             if(enemy.isDead()) {
                 killedEntities.add(enemy);
@@ -92,6 +94,8 @@ public abstract class Spell extends MovableEntity {
         if(player != caster) {
             if(hitBoxIntersectWith(player)) {
                 player.hurt(damage, getDirection());
+                setState(SpellState.Expired);
+                hitAnEnemy = true;
             }
         }
     }

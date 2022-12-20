@@ -26,11 +26,15 @@ public class Fireball extends Spell {
     @Override
     public void update(MovableEntity player) {
         super.update();
+        hitAnEnemy = false;
         updateAnimation();
         move(getDirection());
         updateHitEnemy();
         updateHitPlayer(player);
         updateHitBlockade();
+        if (hitAnEnemy) {
+            die();
+        }
     }
 
     @Override
@@ -58,7 +62,6 @@ public class Fireball extends Spell {
     @Override
     protected void die() {
         Sound.FIREBALL_HIT.play();
-        SpellRepository.getInstance().unregisterEntity(this);
     }
 
     private void updateAnimation() {
