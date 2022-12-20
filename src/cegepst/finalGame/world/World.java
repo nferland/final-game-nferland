@@ -104,11 +104,11 @@ public class World {
     private void createSpawnPoints() {
         createBossSpawnPoint(1100, 1500);
         createMobSpawnPoint(900, 300);
-        createMobSpawnPoint(450, 950);
+        createMobSpawnPoint(1150, 750);
     }
 
     private void createMobSpawnPoint(int x, int y) {
-        spawnPoints.add(new MobSpawnPoint(x, y, 3000));
+        spawnPoints.add(new MobSpawnPoint(x, y, 2500));
     }
 
     private void createBossSpawnPoint(int x, int y) {
