@@ -1,39 +1,56 @@
 package cegepst.engine.entities;
 
+import cegepst.engine.GameTime;
 import cegepst.engine.controls.Direction;
+import cegepst.engine.entities.physic.Collision;
+import cegepst.engine.entities.stateMachines.HurtState;
+import cegepst.engine.entities.stateMachines.MovementState;
 import cegepst.engine.graphics.Buffer;
+import cegepst.finalGame.audio.Sound;
 
 import java.awt.*;
 
 public abstract class MovableEntity extends StaticEntity {
 
     private int speed = 1;
+    private int dashSpeed = 5;
+    private int normalSpeed = speed;
+    private int knockBackSpeed = 20;
+    private long dashDuration = 150;
+    private long dashLastUsage = 0L;
+    private int maxHealthPoint = 10;
+    private int healthPoint = maxHealthPoint;
     private Direction direction = Direction.UP;
     private int lastX = Integer.MIN_VALUE;
     private int lastY = Integer.MIN_VALUE;
-    private boolean moved = false;
     private Collision collision;
+    protected MovementState movementState = MovementState.Idle;
+    protected HurtState hurtState = HurtState.NotHurt;
+
+    public abstract void draw(Buffer buffer);
 
     public MovableEntity() {
         collision = new Collision(this);
     }
 
     public void update() {
-        moved = false;
+        movementState = movementState.nextState();
+        hurtState = hurtState.nextState();
     }
 
     public void move() {
         int allowedDistance = collision.getAllowedSpeed(direction);
         x += direction.calculateVelocityX(allowedDistance);
         y += direction.calculateVelocityY(allowedDistance);
-        moved = (x != lastX || y != lastY);
+        movementState = (x != lastX || y != lastY)? MovementState.Moving : movementState;
         lastX = x;
         lastY = y;
     }
 
     public boolean hasMoved() {
-        return moved;
+        return movementState != MovementState.Idle;
     }
+
 
     public void move(Direction direction) {
         this.direction = direction;
@@ -80,6 +97,51 @@ public abstract class MovableEntity extends StaticEntity {
                 rectangle.width, rectangle.height, color);
     }
 
+    public void dash() {
+        movementState = MovementState.Dashing;
+        dashLastUsage = GameTime.getCurrentTime();
+        Sound.DASH.play();
+    }
+    public void hurt(int damage) {
+        hurtState = HurtState.Hurt;
+        healthPoint -= damage;
+        if (healthPoint <= 0) {
+            healthPoint = 0;
+            hurtState = HurtState.Dead;
+        }
+    }
+
+    public void hurt(int damage, Direction kbDirection) {
+        if (hurtState != HurtState.Invulnerable){
+            hurt(damage);
+            knockBack(kbDirection);
+        }
+    }
+
+    public int getMaxHealthPoint() {
+        return maxHealthPoint;
+    }
+
+    public void setMaxHealthPoint(int maxHealthPoint) {
+        this.maxHealthPoint = maxHealthPoint;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
+    }
+
+    public boolean isDashing() {
+        return (GameTime.getCurrentTime() - dashLastUsage < dashDuration);
+    }
+
+    public boolean isDead() {
+        return hurtState == HurtState.Dead;
+    }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -89,6 +151,9 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     public int getSpeed() {
+        if(isDashing()){
+            return dashSpeed;
+        }
         return speed;
     }
 
@@ -96,19 +161,45 @@ public abstract class MovableEntity extends StaticEntity {
         return direction;
     }
 
+    public void setDashSpeed(int strength) {
+        dashSpeed = strength;
+    }
+
+    public void setNormalSpeed(int speed) {
+        normalSpeed = speed;
+    }
+
+    public void setDashDuration(long dashDuration) {
+        this.dashDuration = dashDuration;
+    }
+
+    protected Collision getCollision() {
+        return collision;
+    }
+
     private Rectangle getUpperHitBox() {
-        return new Rectangle(x, y - speed, width, speed);
+        return new Rectangle(x, y - speed, getWidth(), speed);
     }
 
     private Rectangle getLowerHitBox() {
-        return new Rectangle(x, y + height, width, speed);
+        return new Rectangle(x, y + getHeight(), getWidth(), speed);
     }
 
     private Rectangle getLeftHitBox() {
-        return new Rectangle(x - speed, y, speed, height);
+        return new Rectangle(x - speed, y, speed, getHeight());
     }
 
     private Rectangle getRightHitBox() {
-        return new Rectangle(x + width, y, speed, height);
+        return new Rectangle(x + getWidth(), y, speed, getHeight());
+    }
+
+    protected abstract void die();
+
+    private void knockBack(Direction direction) {
+        Direction previousDirection = getDirection();
+        setSpeed(knockBackSpeed);
+        move(direction);
+        setSpeed(normalSpeed);
+        setDirection(previousDirection);
     }
 }

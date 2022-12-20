@@ -7,6 +7,7 @@ public abstract class Game {
 
     private final RenderingEngine renderingEngine;
     private boolean playing = true;
+    private boolean gameWon = false;
 
     protected abstract void initialize();
     protected abstract void update();
@@ -39,6 +40,18 @@ public abstract class Game {
             renderingEngine.drawBufferOnScreen();
             gameTime.synchronize();
         }
+        endOfGame();
         renderingEngine.stop();
+    }
+
+    private void endOfGame() {
+        if (gameWon) {
+            //TODO : Win screen
+        }
+        //TODO: Game over screen
+    }
+
+    public void victory() {
+        gameWon = true;
     }
 }
